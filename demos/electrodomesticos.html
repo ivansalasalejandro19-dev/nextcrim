@@ -85,11 +85,14 @@
     .demo-footer a { color:#7c3aed; text-decoration:none; }
 
     .badge-offer { display:inline-block; padding:2px 8px; background:#e11d48; color:#fff; border-radius:4px; font-size:.65rem; font-weight:700; margin-left:6px; }
+    .back-btn { position:fixed; top:12px; left:12px; z-index:999; padding:8px 16px; background:rgba(0,0,0,.7); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,.1); border-radius:50px; color:#fff; text-decoration:none; font-size:.75rem; font-weight:600; display:flex; align-items:center; gap:6px; transition:all .2s; }
+    .back-btn:hover { background:#7c3aed; transform:translateY(-1px); }
 
     @media(max-width:640px) { header .inner { justify-content:center; } header nav { gap:12px; } .products-grid.grid { grid-template-columns:1fr; } .controls-panel .ctrl-group { flex-wrap:wrap; } }
   </style>
 </head>
 <body class="theme-dark">
+  <a href="../index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Next Crim<sup>&reg;</sup></a>
   <div class="demo-bar"><i class="fas fa-flask"></i> Demo interactiva &mdash; Los botones de abajo cambian el tema y la vista</div>
   <header>
     <div class="inner">

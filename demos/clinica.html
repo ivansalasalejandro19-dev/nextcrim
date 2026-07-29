@@ -64,10 +64,13 @@
     .extra-item p { font-size:.78rem; color:#666; }
     .demo-footer { text-align:center; padding:20px; font-size:.8rem; border-top:1px solid #222; color:#666; }
     .demo-footer a { color:#059669; text-decoration:none; }
+    .back-btn { position:fixed; top:12px; left:12px; z-index:999; padding:8px 16px; background:rgba(0,0,0,.7); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,.1); border-radius:50px; color:#fff; text-decoration:none; font-size:.75rem; font-weight:600; display:flex; align-items:center; gap:6px; transition:all .2s; }
+    .back-btn:hover { background:#059669; transform:translateY(-1px); }
     @media(max-width:640px) { header .inner { justify-content:center; } header nav { gap:12px; } }
   </style>
 </head>
 <body>
+  <a href="../index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Next Crim<sup>&reg;</sup></a>
   <div class="demo-bar"><i class="fas fa-stethoscope"></i> Demo interactiva — <span id="versionLabel">Versión Normal</span><span class="version-badge">Hacé clic abajo</span></div>
   <header>
     <div class="inner">
