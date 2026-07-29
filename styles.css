@@ -1440,26 +1440,83 @@ img {
     text-align: center;
   }
 
+  .hero {
+    min-height: auto;
+    padding: 110px 20px 60px;
+  }
+
+  .hero-title {
+    font-size: clamp(1.8rem, 7vw, 2.8rem);
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
   .hero-stats {
-    gap: 24px;
+    gap: 20px;
   }
 
   .stat-item:not(:last-child)::after {
     display: none;
   }
 
+  .stat-number {
+    font-size: 1.6rem;
+  }
+
+  .scroll-indicator {
+    display: none;
+  }
+
   .portfolio-grid {
     grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .portfolio-preview {
+    aspect-ratio: 16 / 9;
+  }
+
+  .portfolio-info {
+    padding: 16px 18px 20px;
+  }
+
+  .portfolio-info h3 {
+    font-size: 1.05rem;
+  }
+
+  .portfolio-link-group {
+    gap: 8px;
+  }
+
+  .portfolio-link {
+    font-size: 0.78rem;
+    padding: 7px 14px;
   }
 
   .services-grid,
   .why-grid {
     grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .service-card {
+    padding: 24px 20px;
+  }
+
+  .why-card {
+    padding: 22px 18px;
   }
 
   .footer-grid {
     grid-template-columns: 1fr;
     gap: 28px;
+    text-align: left;
+  }
+
+  .footer-social {
+    justify-content: flex-start;
   }
 
   .cta-contact-info {
@@ -1473,11 +1530,23 @@ img {
   }
 
   .modal-body {
-    padding: 24px;
+    padding: 20px;
+  }
+
+  .modal-demo-header h2 {
+    font-size: 1.4rem;
   }
 
   .section {
-    padding: 60px 0;
+    padding: 50px 0;
+  }
+
+  .section-header {
+    margin-bottom: 32px;
+  }
+
+  .section-header h2 {
+    font-size: 1.6rem;
   }
 
   .process-steps::before {
@@ -1490,21 +1559,63 @@ img {
     min-width: 40px;
     font-size: 0.8rem;
   }
+
+  .step {
+    padding: 16px 0;
+    gap: 16px;
+  }
+
+  .step-content h3 {
+    font-size: 1rem;
+  }
+
+  .about-grid {
+    gap: 28px;
+  }
+
+  .about-content h2 {
+    font-size: 1.5rem;
+  }
+
+  .about-content p {
+    font-size: 0.9rem;
+  }
+
+  .cta-content h2 {
+    font-size: 1.5rem;
+  }
+
+  .cta-content p {
+    font-size: 0.95rem;
+  }
+
+  .btn-lg {
+    padding: 14px 28px;
+    font-size: 0.95rem;
+  }
 }
 
 @media (max-width: 480px) {
   .hero-cta {
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
+    gap: 12px;
   }
 
   .btn {
     width: 100%;
     justify-content: center;
+    padding: 13px 24px;
+    font-size: 0.9rem;
   }
 
   .hero {
-    padding: 100px 16px 60px;
+    padding: 100px 16px 50px;
+  }
+
+  .hero-badge {
+    font-size: 0.7rem;
+    padding: 6px 14px;
   }
 
   .container {
@@ -1512,7 +1623,43 @@ img {
   }
 
   .section-header {
-    margin-bottom: 40px;
+    margin-bottom: 28px;
+  }
+
+  .section-tag {
+    font-size: 0.7rem;
+    padding: 4px 12px;
+  }
+
+  .portfolio-card {
+    border-radius: 12px;
+  }
+
+  .service-icon {
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
+  }
+
+  .nav-logo {
+    font-size: 1.2rem;
+  }
+
+  .modal-content {
+    border-radius: 16px;
+    max-height: 90vh;
+  }
+
+  .modal-demo-card {
+    padding: 14px;
+  }
+  
+  .footer {
+    padding: 40px 0 0;
+  }
+
+  .footer-brand p {
+    font-size: 0.82rem;
   }
 }
 
