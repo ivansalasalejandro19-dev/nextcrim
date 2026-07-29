@@ -139,6 +139,11 @@
       <button data-currency="ars" class="active">ARS</button>
       <button data-currency="usd">USD</button>
     </div>
+    <div class="ctrl-group">
+      <label>Versión</label>
+      <button data-version="normal" class="active">Normal</button>
+      <button data-version="premium">Premium</button>
+    </div>
   </div>
 
   <div class="hero-section">
@@ -189,11 +194,12 @@
       green:{ title:'Tu próximo hogar', desc:'Propiedades seleccionadas con los mejores estándares' },
     };
 
-    let theme = 'dark', layout = 'grid', currency = 'ars', type = 'all', search = '', bedrooms = 0, sort = 'default';
+    let theme = 'dark', layout = 'grid', currency = 'ars', type = 'all', search = '', bedrooms = 0, sort = 'default', version = 'normal';
 
     function renderProperties() {
       const container = document.getElementById('properties');
       let filtered = [...properties];
+      if (version === 'normal') filtered = filtered.slice(0, 4);
       if (type !== 'all') filtered = filtered.filter(p => p.type === type);
       if (search) filtered = filtered.filter(p => p.loc.toLowerCase().includes(search.toLowerCase()) || p.name.toLowerCase().includes(search.toLowerCase()));
       if (bedrooms > 0) filtered = filtered.filter(p => p.beds >= bedrooms || (bedrooms === 4 && p.beds >= 4));
@@ -251,6 +257,12 @@
       if (btn.dataset.currency) {
         currency = btn.dataset.currency;
         document.querySelectorAll('[data-currency]').forEach(b => b.classList.toggle('active', b.dataset.currency === currency));
+        renderProperties();
+      }
+      if (btn.dataset.version) {
+        version = btn.dataset.version;
+        document.querySelectorAll('[data-version]').forEach(b => b.classList.toggle('active', b.dataset.version === version));
+        document.querySelector('.demo-bar').innerHTML = `<i class="fas fa-flask"></i> Demo interactiva — Versión <strong>${version==='normal'?'Normal':'Premium'}</strong> &mdash; Cambia el tema y filtrá propiedades`;
         renderProperties();
       }
     });

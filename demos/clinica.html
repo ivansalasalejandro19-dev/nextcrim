@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Demo - Clínica | Next Crim®</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; line-height:1.6; transition:background .4s, color .4s; }
+    body { background:#0a0a0a; color:#fff; }
+    .accent { color:#059669; }
+    .demo-bar { text-align:center; padding:6px; font-size:.75rem; font-weight:600; background:linear-gradient(135deg,#059669,#10b981); color:#fff; }
+    .demo-bar .version-badge { display:inline-block; padding:2px 10px; background:rgba(255,255,255,.2); border-radius:50px; margin-left:8px; font-size:.7rem; }
+    header { position:sticky; top:0; z-index:100; background:#111; border-bottom:1px solid #222; }
+    header .inner { max-width:1200px; margin:0 auto; padding:14px 24px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+    header .logo { font-size:1.3rem; font-weight:900; }
+    header .logo span { color:#059669; }
+    header nav { display:flex; gap:20px; font-size:.85rem; }
+    header nav a { color:#aaa; text-decoration:none; font-weight:500; transition:color .2s; }
+    header nav a:hover { color:#059669; }
+    header .btn-sm { padding:6px 16px; background:#059669; color:#fff; border-radius:50px; text-decoration:none; font-size:.8rem; font-weight:600; }
+    .controls { max-width:1200px; margin:12px auto; padding:0 24px; display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+    .controls button { padding:8px 18px; border-radius:50px; border:1px solid rgba(255,255,255,.1); background:transparent; color:#fff; cursor:pointer; font-size:.78rem; font-weight:500; font-family:'Inter',sans-serif; transition:all .2s; }
+    .controls button:hover { border-color:#059669; background:rgba(5,150,105,.1); }
+    .controls button.active { background:#059669; border-color:#059669; }
+    .hero { text-align:center; padding:48px 24px; background:linear-gradient(135deg,#0a0a0a,#0a1a14); }
+    .hero h1 { font-size:clamp(1.8rem,4vw,2.8rem); font-weight:800; }
+    .hero .badge { display:inline-block; padding:4px 14px; background:rgba(5,150,105,.15); border:1px solid rgba(5,150,105,.25); border-radius:50px; font-size:.75rem; margin-bottom:12px; color:#6ee7b7; }
+    .hero p { color:#aaa; font-size:1rem; margin-top:8px; }
+    .services-section { max-width:1000px; margin:40px auto; padding:0 24px; }
+    .services-section h2, .doctors-section h2, .extra-section h2 { text-align:center; font-size:1.5rem; font-weight:700; margin-bottom:20px; }
+    .services-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:12px; }
+    .service-card { background:#1a1a1a; border:1px solid #222; border-radius:10px; padding:20px; text-align:center; transition:transform .3s; }
+    .service-card:hover { transform:translateY(-3px); }
+    .service-card i { font-size:1.8rem; color:#10b981; margin-bottom:8px; }
+    .service-card h4 { font-size:.95rem; margin-bottom:4px; }
+    .service-card p { font-size:.78rem; color:#666; }
+    .doctors-section { max-width:1000px; margin:0 auto 40px; padding:0 24px; display:none; }
+    .doctors-section.show { display:block; }
+    .doctors-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px; }
+    .doctor-card { background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:20px; text-align:center; }
+    .doctor-card .avatar { width:70px; height:70px; border-radius:50%; margin:0 auto 10px; display:flex; align-items:center; justify-content:center; font-size:2rem; color:#fff; }
+    .doctor-card h4 { font-size:.95rem; }
+    .doctor-card p { font-size:.78rem; color:#666; }
+    .doctor-card .esp { display:inline-block; padding:2px 10px; background:rgba(5,150,105,.15); color:#6ee7b7; border-radius:50px; font-size:.7rem; font-weight:600; margin-top:4px; }
+    .appointment { max-width:500px; margin:0 auto 40px; padding:24px; text-align:center; }
+    .appointment h2 { font-size:1.3rem; font-weight:700; margin-bottom:8px; }
+    .appointment p { font-size:.85rem; color:#666; margin-bottom:16px; }
+    .appointment form { display:flex; flex-direction:column; gap:8px; }
+    .appointment form input, .appointment form select { padding:10px 14px; border-radius:8px; border:1px solid #222; background:rgba(255,255,255,.05); color:#fff; font-family:'Inter',sans-serif; font-size:.85rem; }
+    .appointment form button { padding:12px; border:none; border-radius:8px; font-weight:700; cursor:pointer; font-family:'Inter',sans-serif; font-size:.9rem; background:linear-gradient(135deg,#059669,#10b981); color:#fff; transition:transform .2s; }
+    .appointment form button:hover { transform:translateY(-2px); }
+    .extra-section { display:none; }
+    .extra-section.show { display:block; }
+    .extra-grid { max-width:1000px; margin:0 auto 40px; padding:0 24px; display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px; }
+    .extra-item { background:#1a1a1a; border:1px solid #222; border-radius:10px; padding:20px; text-align:center; }
+    .extra-item i { font-size:2rem; color:#10b981; margin-bottom:8px; }
+    .extra-item h4 { font-size:.9rem; }
+    .extra-item p { font-size:.78rem; color:#666; }
+    .demo-footer { text-align:center; padding:20px; font-size:.8rem; border-top:1px solid #222; color:#666; }
+    .demo-footer a { color:#059669; text-decoration:none; }
+    @media(max-width:640px) { header .inner { justify-content:center; } header nav { gap:12px; } }
+  </style>
+</head>
+<body>
+  <div class="demo-bar"><i class="fas fa-stethoscope"></i> Demo interactiva — <span id="versionLabel">Versión Normal</span><span class="version-badge">Hacé clic abajo</span></div>
+  <header>
+    <div class="inner">
+      <div class="logo">Vita<span>Clinic</span></div>
+      <nav><a href="#">Inicio</a><a href="#">Servicios</a><a href="#">Doctores</a></nav>
+      <a href="#" class="btn-sm"><i class="fas fa-calendar-check"></i> Turnos</a>
+    </div>
+  </header>
+
+  <div class="controls">
+    <button data-version="normal" class="active">Versión Normal</button>
+    <button data-version="premium">Versión Premium</button>
+  </div>
+
+  <div class="hero">
+    <div class="badge"><i class="fas fa-heartbeat"></i> Cuidamos tu salud</div>
+    <h1>Consultorio <span class="accent">digital</span></h1>
+    <p id="heroDesc">Turnos online, historia clínica y atención personalizada</p>
+  </div>
+
+  <div class="services-section">
+    <h2>Servicios</h2>
+    <div class="services-grid" id="servicesGrid"></div>
+  </div>
+
+  <div class="appointment">
+    <h2>Sacá tu turno</h2>
+    <p>Te confirmamos por WhatsApp</p>
+    <form><input type="text" placeholder="Nombre completo"><input type="tel" placeholder="WhatsApp"><select><option>Seleccioná especialidad</option><option>Medicina general</option><option>Pediatría</option><option>Cardiología</option><option>Dermatología</option></select><input type="date"><button type="submit">Solicitar turno</button></form>
+  </div>
+
+  <div class="doctors-section" id="doctorsSection">
+    <h2>Doctores</h2>
+    <div class="doctors-grid" id="doctorsGrid"></div>
+  </div>
+
+  <div class="extra-section" id="extraSection">
+    <h2>Funcionalidades Premium</h2>
+    <div class="extra-grid" id="extraGrid"></div>
+  </div>
+
+  <div class="demo-footer">
+    Demo dinámica — <a href="../index.html">Next Crim<sup>&reg;</sup></a>
+  </div>
+
+  <script>
+    const services = [
+      { name:'Medicina general', desc:'Consultas de rutina y prevención', icon:'fa-stethoscope' },
+      { name:'Pediatría', desc:'Atención para niños y adolescentes', icon:'fa-baby' },
+      { name:'Cardiología', desc:'Estudios y diagnóstico cardiovascular', icon:'fa-heart' },
+      { name:'Dermatología', desc:'Cuidado de la piel', icon:'fa-hand-holding-water' },
+      { name:'Análisis', desc:'Laboratorio clínico', icon:'fa-syringe' },
+      { name:'Emergencias', desc:'Atención sin turno previo', icon:'fa-ambulance' },
+    ];
+    const doctors = [
+      { name:'Dra. Laura Méndez', esp:'Medicina general', color:'#059669' },
+      { name:'Dr. Pablo Ríos', esp:'Cardiología', color:'#10b981' },
+      { name:'Dra. Soledad Vega', esp:'Pediatría', color:'#34d399' },
+      { name:'Dr. Martín Luna', esp:'Dermatología', color:'#059669' },
+    ];
+    const premiumFeatures = [
+      { icon:'fa-file-medical', title:'Historia clínica', desc:'Registro digital de cada paciente' },
+      { icon:'fa-bell', title:'Recordatorios', desc:'Automáticos por WhatsApp' },
+      { icon:'fa-chart-bar', title:'Estadísticas', desc:'Pacientes atendidos por mes' },
+      { icon:'fa-user-md', title:'Perfiles médicos', desc:'Cada doctor con su agenda' },
+    ];
+
+    let version = 'normal';
+
+    function renderServices() {
+      const shown = version === 'normal' ? services.slice(0,3) : services;
+      document.getElementById('servicesGrid').innerHTML = shown.map(s => `
+        <div class="service-card"><i class="fas ${s.icon}"></i><h4>${s.name}</h4><p>${s.desc}</p></div>`).join('');
+    }
+
+    function renderDoctors() {
+      const section = document.getElementById('doctorsSection');
+      if (version === 'premium') {
+        section.classList.add('show');
+        document.getElementById('doctorsGrid').innerHTML = doctors.map(d => `
+          <div class="doctor-card">
+            <div class="avatar" style="background:${d.color}"><i class="fas fa-user-md"></i></div>
+            <h4>${d.name}</h4>
+            <span class="esp">${d.esp}</span>
+          </div>`).join('');
+      } else section.classList.remove('show');
+    }
+
+    function renderExtra() {
+      const section = document.getElementById('extraSection');
+      if (version === 'premium') {
+        section.classList.add('show');
+        document.getElementById('extraGrid').innerHTML = premiumFeatures.map(f => `
+          <div class="extra-item"><i class="fas ${f.icon}"></i><h4>${f.title}</h4><p>${f.desc}</p></div>`).join('');
+      } else section.classList.remove('show');
+    }
+
+    function setVersion(v) {
+      version = v;
+      document.getElementById('versionLabel').textContent = `Versión ${v==='normal'?'Normal':'Premium'}`;
+      document.querySelectorAll('[data-version]').forEach(b => b.classList.toggle('active', b.dataset.version === v));
+      document.getElementById('heroDesc').textContent = v === 'normal' ? 'Turnos online, historia clínica y atención personalizada' : 'Gestión completa con perfiles médicos, historias clínicas y estadísticas';
+      renderServices(); renderDoctors(); renderExtra();
+    }
+
+    document.querySelector('.controls').addEventListener('click', e => {
+      const btn = e.target.closest('button');
+      if (btn && btn.dataset.version) setVersion(btn.dataset.version);
+    });
+    setVersion('normal');
+  </script>
+</body>
+</html>

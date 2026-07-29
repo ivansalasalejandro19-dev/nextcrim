@@ -150,6 +150,30 @@ document.addEventListener('DOMContentLoaded', () => {
         { icon: 'fa-heart', title: 'Favoritos', desc: 'Guardar propiedades' },
         { icon: 'fa-envelope', title: 'Contacto', desc: 'Formulario de contacto' }
       ]
+    },
+    demo5: {
+      title: 'Gimnasio / Centro Fitness',
+      desc: 'Sistema completo con membresías, registro de socios y control de acceso.',
+      features: [
+        { icon: 'fa-dumbbell', title: 'Membresías', desc: 'Planes mensuales y anuales' },
+        { icon: 'fa-users', title: 'Socios', desc: 'Registro y perfiles de socios' },
+        { icon: 'fa-calendar-check', title: 'Clases', desc: 'Agenda y reserva de clases' },
+        { icon: 'fa-chart-line', title: 'Progreso', desc: 'Seguimiento de entrenamiento' },
+        { icon: 'fa-credit-card', title: 'Pagos', desc: 'Cobro automático de cuotas' },
+        { icon: 'fa-clock', title: 'Acceso', desc: 'Control horario de ingreso' }
+      ]
+    },
+    demo6: {
+      title: 'Clínica / Consultorio Médico',
+      desc: 'Plataforma para gestión de turnos, historias clínicas y perfiles médicos.',
+      features: [
+        { icon: 'fa-stethoscope', title: 'Turnos', desc: 'Reserva online de consultas' },
+        { icon: 'fa-user-md', title: 'Doctores', desc: 'Perfiles profesionales' },
+        { icon: 'fa-file-medical', title: 'Historias', desc: 'Historia clínica digital' },
+        { icon: 'fa-syringe', title: 'Servicios', desc: 'Catálogo de prestaciones' },
+        { icon: 'fa-clock', title: 'Horarios', desc: 'Gestión de disponibilidad' },
+        { icon: 'fa-bell', title: 'Recordatorios', desc: 'Notificaciones de turnos' }
+      ]
     }
   };
 
@@ -174,8 +198,11 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="modal-demo-grid">
           ${featuresHtml}
         </div>
-        <div style="text-align:center">
-          <button class="modal-demo-cta" onclick="document.getElementById('modalClose').click()">
+        <div style="text-align:center; display:flex; gap:12px; justify-content:center; flex-wrap:wrap">
+          <a href="https://wa.me/541136773248?text=Hola%20Next%20Crim!%20Quiero%20un%20proyecto%20similar%20a%20${encodeURIComponent(demo.title)}" target="_blank" class="modal-demo-cta" style="text-decoration:none; background:linear-gradient(135deg,#25D366,#128C7E)">
+            <i class="fab fa-whatsapp"></i> Consultar por WhatsApp
+          </a>
+          <button class="modal-demo-cta" onclick="document.getElementById('modalClose').click()" style="background:linear-gradient(135deg,#7c3aed,#6d28d9)">
             <i class="fas fa-paper-plane"></i> Solicitar proyecto similar
           </button>
         </div>

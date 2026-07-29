@@ -114,6 +114,11 @@
       <button data-currency="ars" class="active">ARS</button>
       <button data-currency="usd">USD</button>
     </div>
+    <div class="ctrl-group">
+      <label>Versión</label>
+      <button data-version="normal" class="active">Normal</button>
+      <button data-version="premium">Premium</button>
+    </div>
   </div>
 
   <div class="hero-section">
@@ -156,11 +161,18 @@
       blue:{ title:'Repair & Go', desc:'Servicio técnico rápido y confiable' },
     };
 
-    let theme = 'dark', filter = 'all', currency = 'ars';
+    let theme = 'dark', filter = 'all', currency = 'ars', version = 'normal';
+
+    const premiumServices = [
+      { id:9, name:'Diagnóstico avanzado', desc:'Con equipo especializado', price:2499, usd:5, icon:'fa-microscope', filter:'repair' },
+      { id:10, name:'Desbloqueo', desc:'Desbloqueo de cualquier equipo', price:3999, usd:8, icon:'fa-unlock', filter:'repair' },
+      { id:11, name:'Cargador rápido', desc:'Cargador original 30W', price:3499, usd:7, icon:'fa-plug', filter:'accessory' },
+      { id:12, name:'Funda deportiva', desc:'Funda con soporte para brazo', price:2499, usd:5, icon:'fa-running', filter:'accessory' },
+    ];
 
     function renderServices() {
       const container = document.getElementById('services');
-      let filtered = services;
+      let filtered = version === 'normal' ? services : [...services, ...premiumServices];
       if (filter !== 'all') filtered = filtered.filter(s => s.filter === filter);
       const symbol = currency === 'ars' ? '$' : 'USD $';
       container.innerHTML = filtered.map(s => `
@@ -199,6 +211,15 @@
       if (btn.dataset.currency) {
         currency = btn.dataset.currency;
         document.querySelectorAll('[data-currency]').forEach(b => b.classList.toggle('active', b.dataset.currency === currency));
+        renderServices();
+      }
+      if (btn.dataset.version) {
+        version = btn.dataset.version;
+        document.querySelectorAll('[data-version]').forEach(b => b.classList.toggle('active', b.dataset.version === version));
+        document.querySelector('.demo-bar').innerHTML = `<i class="fas fa-flask"></i> Demo interactiva — Versión <strong>${version==='normal'?'Normal':'Premium'}</strong> &mdash; Prueba los temas y filtra servicios`;
+        const hero = document.getElementById('heroTitle');
+        if (version === 'normal') { hero.textContent = 'Reparación de celulares'; document.getElementById('heroDesc').textContent = 'Diagnóstico gratis. Rapidez y garantía en cada servicio'; }
+        else { hero.textContent = 'Service Pro +'; document.getElementById('heroDesc').textContent = 'Gestión de clientes, historial de reparaciones y notificaciones automáticas'; }
         renderServices();
       }
     });

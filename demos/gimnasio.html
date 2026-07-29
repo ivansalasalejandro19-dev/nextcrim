@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Demo - Gimnasio | Next Crim®</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; line-height:1.6; transition:background .4s, color .4s; }
+    body { background:#0a0a0a; color:#fff; }
+    .accent { color:#dc2626; }
+    .demo-bar { text-align:center; padding:6px; font-size:.75rem; font-weight:600; background:linear-gradient(135deg,#dc2626,#f59e0b); color:#fff; }
+    .demo-bar .version-badge { display:inline-block; padding:2px 10px; background:rgba(255,255,255,.2); border-radius:50px; margin-left:8px; font-size:.7rem; }
+    header { position:sticky; top:0; z-index:100; background:#111; border-bottom:1px solid #222; }
+    header .inner { max-width:1200px; margin:0 auto; padding:14px 24px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+    header .logo { font-family:'Oswald',sans-serif; font-size:1.5rem; text-transform:uppercase; letter-spacing:2px; }
+    header .logo span { color:#dc2626; }
+    header nav { display:flex; gap:20px; font-size:.85rem; }
+    header nav a { color:#aaa; text-decoration:none; font-weight:500; transition:color .2s; }
+    header nav a:hover { color:#dc2626; }
+    .controls { max-width:1200px; margin:12px auto; padding:0 24px; display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+    .controls button { padding:8px 18px; border-radius:50px; border:1px solid rgba(255,255,255,.1); background:transparent; color:#fff; cursor:pointer; font-size:.78rem; font-weight:500; font-family:'Inter',sans-serif; transition:all .2s; }
+    .controls button:hover { border-color:#dc2626; background:rgba(220,38,38,.1); }
+    .controls button.active { background:#dc2626; border-color:#dc2626; }
+    .hero { text-align:center; padding:48px 24px; background:linear-gradient(135deg,#0a0a0a,#1a0a0a); }
+    .hero h1 { font-family:'Oswald',sans-serif; font-size:clamp(2rem,5vw,3.5rem); text-transform:uppercase; letter-spacing:1px; }
+    .hero .badge { display:inline-block; padding:4px 14px; background:rgba(220,38,38,.15); border:1px solid rgba(220,38,38,.25); border-radius:50px; font-size:.75rem; margin-bottom:12px; color:#fca5a5; }
+    .hero p { color:#aaa; font-size:1rem; margin-top:8px; }
+    .hero .stats { display:flex; gap:32px; justify-content:center; margin-top:24px; flex-wrap:wrap; }
+    .hero .stats .num { font-size:1.6rem; font-weight:800; color:#dc2626; }
+    .hero .stats .lbl { font-size:.75rem; color:#666; }
+    .plans-section h2, .classes-section h2, .extra-section h2 { text-align:center; font-family:'Oswald',sans-serif; font-size:1.8rem; text-transform:uppercase; margin:40px 0 20px; letter-spacing:1px; }
+    .plans { max-width:1000px; margin:0 auto 40px; padding:0 24px; display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:16px; }
+    .plan-card { background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:24px; text-align:center; transition:transform .3s; }
+    .plan-card:hover { transform:translateY(-4px); }
+    .plan-card .name { font-family:'Oswald',sans-serif; font-size:1.2rem; text-transform:uppercase; }
+    .plan-card .price { font-size:2rem; font-weight:800; margin:8px 0; color:#dc2626; }
+    .plan-card .price small { font-size:.8rem; color:#666; font-weight:400; }
+    .plan-card ul { list-style:none; text-align:left; margin:12px 0; }
+    .plan-card ul li { padding:4px 0; font-size:.85rem; color:#aaa; }
+    .plan-card ul li i { color:#22c55e; margin-right:6px; font-size:.7rem; }
+    .plan-card .btn { display:inline-block; padding:10px 28px; background:#dc2626; color:#fff; border-radius:50px; text-decoration:none; font-weight:700; font-size:.85rem; transition:transform .2s; }
+    .plan-card .btn:hover { transform:scale(1.05); }
+    .plan-card.featured { border-color:#dc2626; transform:scale(1.03); }
+    .plan-card.featured:hover { transform:scale(1.03) translateY(-4px); }
+    .classes { max-width:1000px; margin:0 auto 40px; padding:0 24px; display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:12px; }
+    .class-card { background:#1a1a1a; border:1px solid #222; border-radius:10px; padding:16px; text-align:center; }
+    .class-card i { font-size:1.5rem; color:#f59e0b; margin-bottom:6px; }
+    .class-card h4 { font-size:.95rem; }
+    .class-card .time { font-size:.8rem; color:#666; }
+    .members-section { max-width:1000px; margin:0 auto 40px; padding:0 24px; display:none; }
+    .members-section.show { display:block; }
+    .members-section h2 { font-family:'Oswald',sans-serif; font-size:1.8rem; text-transform:uppercase; text-align:center; margin-bottom:20px; letter-spacing:1px; }
+    .member-stats { display:flex; gap:16px; justify-content:center; margin-bottom:20px; flex-wrap:wrap; }
+    .member-stat { background:#1a1a1a; border:1px solid #222; border-radius:10px; padding:16px 24px; text-align:center; }
+    .member-stat .num { font-size:1.5rem; font-weight:800; color:#22c55e; }
+    .member-stat .lbl { font-size:.75rem; color:#666; }
+    .member-table { width:100%; border-collapse:collapse; }
+    .member-table th, .member-table td { padding:8px 12px; text-align:left; border-bottom:1px solid #222; font-size:.85rem; }
+    .member-table th { color:#dc2626; font-weight:600; }
+    .member-table td { color:#aaa; }
+    .member-table .active-dot { color:#22c55e; font-size:.6rem; }
+    .member-table .inactive-dot { color:#666; font-size:.6rem; }
+    .extra-section { display:none; }
+    .extra-section.show { display:block; }
+    .extra-grid { max-width:1000px; margin:0 auto 40px; padding:0 24px; display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px; }
+    .extra-card { background:#1a1a1a; border:1px solid #222; border-radius:10px; padding:20px; text-align:center; }
+    .extra-card i { font-size:2rem; color:#f59e0b; margin-bottom:8px; }
+    .extra-card h4 { font-size:.95rem; margin-bottom:4px; }
+    .extra-card p { font-size:.8rem; color:#666; }
+    .demo-footer { text-align:center; padding:20px; font-size:.8rem; border-top:1px solid #222; color:#666; }
+    .demo-footer a { color:#dc2626; text-decoration:none; }
+    @media(max-width:640px) { header .inner { justify-content:center; } header nav { gap:12px; } .plan-card.featured { transform:none; } }
+  </style>
+</head>
+<body>
+  <div class="demo-bar" id="demoBar"><i class="fas fa-dumbbell"></i> Demo interactiva — <span id="versionLabel">Versión Normal</span><span class="version-badge" id="versionBadge">Hacé clic abajo</span></div>
+  <header>
+    <div class="inner">
+      <div class="logo">Fit<span>Zone</span></div>
+      <nav><a href="#">Inicio</a><a href="#">Planes</a><a href="#">Clases</a><a href="#">Socios</a></nav>
+    </div>
+  </header>
+
+  <div class="controls">
+    <button data-version="normal" class="active" id="btnNormal">Versión Normal</button>
+    <button data-version="premium" id="btnPremium">Versión Premium</button>
+  </div>
+
+  <div class="hero">
+    <div class="badge"><i class="fas fa-dumbbell"></i> Transformá tu cuerpo</div>
+    <h1>Entrená con <span class="accent">garra</span></h1>
+    <p id="heroDesc">El mejor equipamiento y los mejores profesores para que llegues a tu meta</p>
+    <div class="stats" id="heroStats">
+      <div><div class="num">450+</div><div class="lbl">Socios activos</div></div>
+      <div><div class="num">12</div><div class="lbl">Profesores</div></div>
+      <div><div class="num">25</div><div class="lbl">Clases semanales</div></div>
+    </div>
+  </div>
+
+  <div class="plans-section">
+    <h2>Planes</h2>
+    <div class="plans" id="plans"></div>
+  </div>
+
+  <div class="classes-section">
+    <h2>Clases</h2>
+    <div class="classes" id="classes"></div>
+  </div>
+
+  <div class="extra-section" id="extraSection">
+    <h2>Premium</h2>
+    <div class="extra-grid" id="extraGrid"></div>
+  </div>
+
+  <div class="members-section" id="membersSection">
+    <h2><i class="fas fa-users"></i> Socios</h2>
+    <div class="member-stats" id="memberStats"></div>
+    <div style="overflow-x:auto"><table class="member-table" id="memberTable"></table></div>
+  </div>
+
+  <div class="demo-footer">
+    Demo dinámica — Versiones Normal y Premium — <a href="../index.html">Next Crim<sup>&reg;</sup></a>
+  </div>
+
+  <script>
+    const plans = [
+      { name:'Básico', price:8999, desc:'Acceso a sala de musculación', features:['Musculación libre','Cardio','2 días por semana','Sin profesor'], featured:false },
+      { name:'Premium', price:14999, desc:'Acceso completo + clases', features:['Todo incluido','Clases dirigidas','Acceso 7 días','Profesor asignado','Fitness app'], featured:true },
+      { name:'VIP', price:24999, desc:'Full acceso + seguimiento', features:['Todo incluido','Nutricionista','Rutina personalizada','Acceso 24/7','Estacionamiento'], featured:false },
+    ];
+    const classes = [
+      { name:'CrossFit', time:'Lun - Mié 8am', icon:'fa-fire' },
+      { name:'Spinning', time:'Mar - Jue 10am', icon:'fa-bicycle' },
+      { name:'Yoga', time:'Lun - Vie 7am', icon:'fa-spa' },
+      { name:'Funcional', time:'Mar - Jue 6pm', icon:'fa-running' },
+      { name:'Boxeo', time:'Mié - Vie 5pm', icon:'fa-fist-raised' },
+      { name:'Zumba', time:'Sáb 10am', icon:'fa-music' },
+    ];
+    const members = [
+      { name:'Lucía Martínez', plan:'Premium', status:'activo', vence:'15/08/2026', ingreso:'Ene 2026' },
+      { name:'Gastón Rodríguez', plan:'VIP', status:'activo', vence:'20/09/2026', ingreso:'Mar 2025' },
+      { name:'Camila Fernández', plan:'Básico', status:'activo', vence:'10/07/2026', ingreso:'Jun 2026' },
+      { name:'Nicolás Pereyra', plan:'Premium', status:'inactivo', vence:'01/06/2026', ingreso:'Abr 2026' },
+      { name:'Sofía López', plan:'Premium', status:'activo', vence:'05/08/2026', ingreso:'Feb 2026' },
+      { name:'Martín Silva', plan:'Básico', status:'activo', vence:'22/07/2026', ingreso:'May 2026' },
+    ];
+
+    let currentVersion = 'normal';
+
+    function renderPlans() { document.getElementById('plans').innerHTML = plans.map(p => `
+      <div class="plan-card${p.featured?' featured':''}">
+        <div class="name">${p.name}</div>
+        <div class="price">$${p.featured && currentVersion==='normal' ? (p.price/2).toLocaleString() : p.price.toLocaleString()}<small>/mes</small></div>
+        <p style="font-size:.85rem;color:#aaa">${p.desc}</p>
+        <ul>${p.features.map(f => `<li><i class="fas fa-check"></i> ${f}</li>`).join('')}</ul>
+        ${currentVersion==='premium' || !p.featured ? `<a href="#" class="btn">Elegir plan</a>` : `<a href="#" class="btn" style="background:#555">Consultar</a>`}
+      </div>`).join('');
+    }
+
+    function renderClasses() { document.getElementById('classes').innerHTML = classes.slice(0, currentVersion==='normal'?3:6).map(c => `
+      <div class="class-card"><i class="fas ${c.icon}"></i><h4>${c.name}</h4><div class="time">${c.time}</div></div>`).join('');
+    }
+
+    function renderMembers() {
+      const section = document.getElementById('membersSection');
+      if (currentVersion === 'premium') { section.classList.add('show');
+        document.getElementById('memberStats').innerHTML = `
+          <div class="member-stat"><div class="num">${members.filter(m=>m.status==='activo').length}</div><div class="lbl">Activos</div></div>
+          <div class="member-stat"><div class="num">${members.filter(m=>m.status==='inactivo').length}</div><div class="lbl">Inactivos</div></div>
+          <div class="member-stat"><div class="num">${members.filter(m=>m.plan==='Premium').length}</div><div class="lbl">Plan Premium</div></div>`;
+        document.getElementById('memberTable').innerHTML = `
+          <tr><th>Nombre</th><th>Plan</th><th>Estado</th><th>Vence</th><th>Ingreso</th></tr>
+          ${members.map(m => `<tr><td>${m.name}</td><td>${m.plan}</td><td><i class="fas fa-circle ${m.status==='activo'?'active-dot':'inactive-dot'}"></i> ${m.status}</td><td>${m.vence}</td><td>${m.ingreso}</td></tr>`).join('')}`;
+      } else section.classList.remove('show');
+    }
+
+    function renderExtra() {
+      const section = document.getElementById('extraSection');
+      if (currentVersion === 'premium') { section.classList.add('show');
+        document.getElementById('extraGrid').innerHTML = [
+          { icon:'fa-apple-alt', title:'Nutricionista', desc:'Plan alimenticio personalizado' },
+          { icon:'fa-heartbeat', title:'Evaluaciones', desc:'Mediciones corporales mensuales' },
+          { icon:'fa-user-friends', title:'Entrenador', desc:'Seguimiento 1 a 1' },
+          { icon:'fa-trophy', title:'Desafíos', desc:'Competencias con premios' },
+        ].map(e => `<div class="extra-card"><i class="fas ${e.icon}"></i><h4>${e.title}</h4><p>${e.desc}</p></div>`).join('');
+      } else section.classList.remove('show');
+    }
+
+    function setVersion(v) {
+      currentVersion = v;
+      document.getElementById('versionLabel').textContent = `Versión ${v==='normal'?'Normal':'Premium'}`;
+      document.querySelectorAll('[data-version]').forEach(b => b.classList.toggle('active', b.dataset.version === v));
+      document.getElementById('heroDesc').textContent = v==='normal' ? 'El mejor equipamiento y los mejores profesores para que llegues a tu meta' : 'Sistema completo con gestión de socios, planes y estadísticas en tiempo real';
+      renderPlans(); renderClasses(); renderMembers(); renderExtra();
+    }
+
+    document.querySelector('.controls').addEventListener('click', e => {
+      const btn = e.target.closest('button');
+      if (btn && btn.dataset.version) setVersion(btn.dataset.version);
+    });
+    setVersion('normal');
+  </script>
+</body>
+</html>

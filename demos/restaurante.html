@@ -110,6 +110,11 @@
       <button data-gallery="2">2 cols</button>
       <button data-gallery="1">1 col</button>
     </div>
+    <div class="ctrl-group">
+      <label>Versión</label>
+      <button data-version="normal" class="active">Normal</button>
+      <button data-version="premium">Premium</button>
+    </div>
   </div>
 
   <div class="hero-section">
@@ -156,11 +161,12 @@
       warm: { title:'Fuego & Sazón', desc:'Cocina de autor con los mejores ingredientes' },
     };
 
-    let theme = 'dark', galleryCols = 3;
+    let theme = 'dark', galleryCols = 3, version = 'normal';
 
     function renderMenu() {
       const container = document.getElementById('menu');
-      container.innerHTML = menuData.map(cat => `
+      const data = version === 'normal' ? menuData.map(cat => ({ ...cat, items: cat.items.slice(0,2) })) : menuData;
+      container.innerHTML = data.map(cat => `
         <div class="menu-cat">${cat.cat}</div>
         ${cat.items.map(item => `
           <div class="menu-item">
@@ -203,6 +209,13 @@
       if (!btn) return;
       if (btn.dataset.theme) setTheme(btn.dataset.theme);
       if (btn.dataset.gallery) setGallery(parseInt(btn.dataset.gallery));
+      if (btn.dataset.version) {
+        version = btn.dataset.version;
+        document.querySelectorAll('[data-version]').forEach(b => b.classList.toggle('active', b.dataset.version === version));
+        document.querySelector('.demo-bar').innerHTML = `<i class="fas fa-flask"></i> Demo interactiva — Versión <strong>${version==='normal'?'Normal':'Premium'}</strong> &mdash; Cambia el tema y explorá el menú`;
+        renderMenu();
+        renderGallery();
+      }
     });
 
     renderMenu();

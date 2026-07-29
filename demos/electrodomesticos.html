@@ -120,6 +120,11 @@
       <button data-offers="all" class="active">Todos</button>
       <button data-offers="sale">Solo ofertas</button>
     </div>
+    <div class="ctrl-group">
+      <label>Versión</label>
+      <button data-version="normal" class="active">Normal</button>
+      <button data-version="premium">Premium</button>
+    </div>
   </div>
 
   <div class="hero-section">
@@ -154,6 +159,7 @@
     let currentLayout = 'grid';
     let currentCat = 'todas';
     let showOffers = 'all';
+    let version = 'normal';
 
     const heroData = {
       dark: { title:'Tienda de Electrodomésticos', desc:'Catálogo interactivo con productos, carrito y promociones - Argentina' },
@@ -179,6 +185,7 @@
       let filtered = [...products];
       if (currentCat !== 'todas') filtered = filtered.filter(p => p.cat === currentCat);
       if (showOffers === 'sale') filtered = filtered.filter(p => p.sale);
+      if (version === 'normal') filtered = filtered.slice(0, 4);
 
       container.innerHTML = filtered.map(p => `
         <div class="product-card">
@@ -223,6 +230,12 @@
       if (btn.dataset.offers) {
         showOffers = btn.dataset.offers;
         document.querySelectorAll('[data-offers]').forEach(b => b.classList.toggle('active', b.dataset.offers === showOffers));
+        renderProducts();
+      }
+      if (btn.dataset.version) {
+        version = btn.dataset.version;
+        document.querySelectorAll('[data-version]').forEach(b => b.classList.toggle('active', b.dataset.version === version));
+        document.querySelector('.demo-bar').innerHTML = `<i class="fas fa-flask"></i> Demo interactiva — Versión <strong>${version==='normal'?'Normal':'Premium'}</strong> &mdash; Los botones cambian el tema y la vista`;
         renderProducts();
       }
     });
