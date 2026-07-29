@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Demo Dinámica - Servicio Técnico | Next Crim®</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; line-height:1.6; transition:background .4s, color .4s; }
+
+    body.theme-dark { background:#0a0a0a; color:#fff; }
+    body.theme-dark header { background:#111; border-color:#222; }
+    body.theme-dark .card { background:#1a1a1a; border-color:#222; }
+
+    body.theme-light { background:#f8f8f8; color:#111; }
+    body.theme-light header { background:#fff; border-color:#eee; }
+    body.theme-light header nav a { color:#555; }
+    body.theme-light .card { background:#fff; border-color:#eee; }
+
+    body.theme-blue { background:#0a1628; color:#fff; }
+    body.theme-blue header { background:#0f1f3d; border-color:rgba(59,130,246,.2); }
+    body.theme-blue header nav a { color:#93b4e8; }
+    body.theme-blue .card { background:#142a4a; border-color:rgba(59,130,246,.15); }
+    body.theme-blue .card .price-tag { background:rgba(59,130,246,.15); color:#60a5fa; }
+    body.theme-blue .accent-color { color:#60a5fa; }
+    body.theme-blue .btn-primary { background:linear-gradient(135deg,#2563eb,#3b82f6); }
+    body.theme-blue .hero-section .badge { background:rgba(59,130,246,.15); border-color:rgba(59,130,246,.25); color:#60a5fa; }
+    body.theme-blue .hero-section { background:linear-gradient(135deg,#0a1628,#0f1f3d); }
+    body.theme-blue .demo-footer { border-color:rgba(59,130,246,.15); }
+
+    .accent-color { color:#7c3aed; }
+
+    header { position:sticky; top:0; z-index:100; transition:background .4s, border-color .4s; border-bottom:1px solid; }
+    header .inner { max-width:1200px; margin:0 auto; padding:14px 24px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+    header .logo { font-size:1.2rem; font-weight:900; }
+    header .logo .accent { color:#7c3aed; }
+    header nav { display:flex; gap:20px; font-size:.85rem; }
+    header nav a { text-decoration:none; font-weight:500; transition:color .2s; }
+    header nav a:hover { color:#7c3aed; }
+    header .btn-sm { padding:6px 16px; background:#7c3aed; color:#fff; border-radius:50px; text-decoration:none; font-size:.8rem; font-weight:600; }
+
+    .demo-bar { text-align:center; padding:6px; font-size:.75rem; font-weight:600; background:#7c3aed; color:#fff; }
+
+    .hero-section { padding:48px 24px; text-align:center; transition:background .4s; }
+    .hero-section h1 { font-size:clamp(1.5rem,4vw,2.2rem); font-weight:800; margin-bottom:6px; }
+    .hero-section p { opacity:.7; }
+    .hero-section .badge { display:inline-block; padding:4px 14px; border-radius:50px; font-size:.75rem; margin-bottom:12px; }
+    .hero-section .badge i { margin-right:4px; }
+
+    .controls-panel { max-width:1200px; margin:16px auto 0; padding:0 24px; display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+    .controls-panel .ctrl-group { display:flex; gap:6px; align-items:center; background:rgba(255,255,255,.05); padding:6px 12px; border-radius:50px; border:1px solid rgba(255,255,255,.08); }
+    .controls-panel .ctrl-group label { font-size:.7rem; text-transform:uppercase; letter-spacing:1px; opacity:.5; margin-right:4px; }
+    .controls-panel button { padding:6px 14px; border-radius:50px; border:1px solid rgba(255,255,255,.1); background:transparent; color:inherit; cursor:pointer; font-size:.75rem; font-weight:500; font-family:'Inter',sans-serif; transition:all .2s; }
+    .controls-panel button:hover { border-color:#7c3aed; background:rgba(124,58,237,.1); }
+    .controls-panel button.active { background:#7c3aed; border-color:#7c3aed; color:#fff; }
+
+    .stats { max-width:1200px; margin:20px auto; padding:0 24px; display:flex; gap:32px; justify-content:center; flex-wrap:wrap; }
+    .stats .stat { text-align:center; }
+    .stats .stat .num { font-size:1.8rem; font-weight:800; color:#7c3aed; }
+    .stats .stat .lbl { font-size:.75rem; opacity:.5; }
+
+    .services-grid { max-width:1200px; margin:24px auto 40px; padding:0 24px; display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:14px; }
+    .card { border-radius:12px; padding:20px; text-align:center; border:1px solid; transition:all .3s; }
+    .card:hover { transform:translateY(-3px); }
+    .card i { font-size:1.8rem; color:#7c3aed; margin-bottom:8px; }
+    .card h3 { font-size:.95rem; font-weight:600; margin-bottom:4px; }
+    .card p { font-size:.78rem; opacity:.5; }
+    .card .price-tag { display:inline-block; margin-top:8px; padding:3px 12px; background:rgba(124,58,237,.1); color:#7c3aed; border-radius:50px; font-size:.7rem; font-weight:600; }
+
+    .appointment { max-width:500px; margin:0 auto 40px; padding:24px; text-align:center; }
+    .appointment h2 { font-size:1.3rem; font-weight:700; margin-bottom:4px; }
+    .appointment p { font-size:.85rem; opacity:.5; margin-bottom:16px; }
+    .appointment form { display:flex; flex-direction:column; gap:8px; }
+    .appointment form input, .appointment form select { padding:10px 14px; border-radius:8px; border:1px solid rgba(255,255,255,.1); background:rgba(255,255,255,.05); color:inherit; font-family:'Inter',sans-serif; font-size:.85rem; }
+    .appointment form button { padding:12px; border:none; border-radius:8px; font-weight:700; cursor:pointer; font-family:'Inter',sans-serif; font-size:.9rem; background:linear-gradient(135deg,#6d28d9,#7c3aed); color:#fff; transition:transform .2s; }
+    .appointment form button:hover { transform:translateY(-2px); }
+
+    .demo-footer { text-align:center; padding:20px; font-size:.8rem; border-top:1px solid; transition:all .4s; }
+    .demo-footer a { color:#7c3aed; text-decoration:none; }
+
+    @media(max-width:640px) { header .inner { justify-content:center; } header nav { gap:12px; } .services-grid { grid-template-columns:1fr 1fr; } }
+  </style>
+</head>
+<body class="theme-dark">
+  <div class="demo-bar"><i class="fas fa-flask"></i> Demo interactiva &mdash; Prueba los temas y filtra servicios</div>
+  <header>
+    <div class="inner">
+      <div class="logo">Fix<span class="accent">Pro</span></div>
+      <nav><a href="#">Inicio</a><a href="#">Servicios</a><a href="#">Citas</a></nav>
+      <a href="#" class="btn-sm"><i class="fas fa-phone"></i> Contacto</a>
+    </div>
+  </header>
+
+  <div class="controls-panel" id="controls">
+    <div class="ctrl-group">
+      <label>Tema</label>
+      <button data-theme="dark" class="active">Oscuro</button>
+      <button data-theme="light">Claro</button>
+      <button data-theme="blue">Azul</button>
+    </div>
+    <div class="ctrl-group">
+      <label>Filtro</label>
+      <button data-filter="all" class="active">Todos</button>
+      <button data-filter="repair">Reparación</button>
+      <button data-filter="accessory">Accesorios</button>
+    </div>
+    <div class="ctrl-group">
+      <label>Moneda</label>
+      <button data-currency="mxn" class="active">MXN</button>
+      <button data-currency="usd">USD</button>
+    </div>
+  </div>
+
+  <div class="hero-section">
+    <div class="badge"><i class="fas fa-tools"></i> Servicio técnico profesional</div>
+    <h1 id="heroTitle">Reparación de celulares</h1>
+    <p id="heroDesc">Diagnóstico gratis. Rapidez y garantía en cada servicio</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="num" id="stat1">500+</div><div class="lbl">Reparaciones</div></div>
+    <div class="stat"><div class="num" id="stat2">98%</div><div class="lbl">Satisfacción</div></div>
+    <div class="stat"><div class="num" id="stat3">45 min</div><div class="lbl">Tiempo promedio</div></div>
+  </div>
+
+  <div class="services-grid" id="services"></div>
+
+  <div class="appointment">
+    <h2>Agenda tu cita</h2>
+    <p>Te confirmamos por WhatsApp</p>
+    <form><input type="text" placeholder="Nombre"><input type="tel" placeholder="Teléfono"><select><option>Pantalla</option><option>Batería</option><option>Líquidos</option><option>Otro</option></select><button type="submit">Agendar</button></form>
+  </div>
+
+  <div class="demo-footer">Demo dinámica &mdash; <a href="../index.html">Next Crim<sup>&reg;</sup></a></div>
+
+  <script>
+    const services = [
+      { id:1, name:'Cambio de pantalla', desc:'Pantalla original/compatible', price:299, usd:14, icon:'fa-mobile-alt', filter:'repair' },
+      { id:2, name:'Cambio de batería', desc:'Batería alta capacidad, 6 meses garantía', price:199, usd:9, icon:'fa-battery-full', filter:'repair' },
+      { id:3, name:'Daño por líquidos', desc:'Limpieza ultrasónica y reparación', price:399, usd:19, icon:'fa-tint', filter:'repair' },
+      { id:4, name:'Cámara', desc:'Reparación y reemplazo', price:349, usd:17, icon:'fa-camera', filter:'repair' },
+      { id:5, name:'Puerto de carga', desc:'Reparación de flex y conector', price:249, usd:12, icon:'fa-usb', filter:'repair' },
+      { id:6, name:'Funda protectora', desc:'Funda resistente a golpes', price:89, usd:4, icon:'fa-shield-alt', filter:'accessory' },
+      { id:7, name:'Mica templada', desc:'Protección de pantalla 9H', price:49, usd:2, icon:'fa-window-maximize', filter:'accessory' },
+      { id:8, name:'Audífonos', desc:'Audífonos inalámbricos', price:149, usd:7, icon:'fa-headphones', filter:'accessory' },
+    ];
+
+    const heroData = {
+      dark:{ title:'Reparación de celulares', desc:'Diagnóstico gratis. Rapidez y garantía en cada servicio' },
+      light:{ title:'Tu celular como nuevo', desc:'Servicio profesional con los mejores técnicos' },
+      blue:{ title:'Repair & Go', desc:'Servicio técnico rápido y confiable' },
+    };
+
+    let theme = 'dark', filter = 'all', currency = 'mxn';
+
+    function renderServices() {
+      const container = document.getElementById('services');
+      let filtered = services;
+      if (filter !== 'all') filtered = filtered.filter(s => s.filter === filter);
+      const symbol = currency === 'mxn' ? '$' : 'USD $';
+      container.innerHTML = filtered.map(s => `
+        <div class="card">
+          <i class="fas ${s.icon}"></i>
+          <h3>${s.name}</h3>
+          <p>${s.desc}</p>
+          <span class="price-tag">${symbol}${currency==='mxn'?s.price:s.usd}</span>
+        </div>
+      `).join('');
+    }
+
+    function setTheme(t) {
+      theme = t;
+      document.body.className = `theme-${t}`;
+      document.querySelectorAll('[data-theme]').forEach(b => b.classList.toggle('active', b.dataset.theme === t));
+      const h = heroData[t];
+      document.getElementById('heroTitle').textContent = h.title;
+      document.getElementById('heroDesc').textContent = h.desc;
+      const accent = { dark:'#7c3aed', light:'#7c3aed', blue:'#60a5fa' };
+      document.querySelectorAll('.num, .card i, .price-tag, .accent-color').forEach(el => {
+        if (t === 'blue') el.style.color = '#60a5fa';
+        else el.style.color = '';
+      });
+    }
+
+    document.getElementById('controls').addEventListener('click', e => {
+      const btn = e.target.closest('button');
+      if (!btn) return;
+      if (btn.dataset.theme) setTheme(btn.dataset.theme);
+      if (btn.dataset.filter) {
+        filter = btn.dataset.filter;
+        document.querySelectorAll('[data-filter]').forEach(b => b.classList.toggle('active', b.dataset.filter === filter));
+        renderServices();
+      }
+      if (btn.dataset.currency) {
+        currency = btn.dataset.currency;
+        document.querySelectorAll('[data-currency]').forEach(b => b.classList.toggle('active', b.dataset.currency === currency));
+        renderServices();
+      }
+    });
+
+    renderServices();
+  </script>
+</body>
+</html>

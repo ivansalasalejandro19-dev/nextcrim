@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Demo Dinámica - Inmobiliaria | Next Crim®</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; line-height:1.6; transition:background .4s, color .4s; }
+
+    body.theme-dark { background:#0a0a0a; color:#fff; }
+    body.theme-dark header { background:#111; border-color:#222; }
+    body.theme-dark .prop-card { background:#1a1a1a; border-color:#222; }
+    body.theme-dark .filter-bar input { background:rgba(255,255,255,.05); border-color:#333; color:#fff; }
+    body.theme-dark .filter-bar select { background:rgba(255,255,255,.05); border-color:#333; color:#fff; }
+    body.theme-dark .filters-row { background:rgba(255,255,255,.03); border-color:rgba(255,255,255,.06); }
+    body.theme-dark .quick-filter { border-color:rgba(255,255,255,.1); }
+
+    body.theme-light { background:#f8f8f8; color:#111; }
+    body.theme-light header { background:#fff; border-color:#eee; }
+    body.theme-light header nav a { color:#555; }
+    body.theme-light .prop-card { background:#fff; border-color:#eee; }
+    body.theme-light .filter-bar input { background:#fff; border-color:#ddd; color:#111; }
+    body.theme-light .filter-bar select { background:#fff; border-color:#ddd; color:#111; }
+    body.theme-light .filters-row { background:#fff; border-color:#eee; }
+    body.theme-light .quick-filter { border-color:#ddd; }
+
+    body.theme-green { background:#0a1a0f; color:#fff; }
+    body.theme-green header { background:#0f2414; border-color:rgba(34,197,94,.2); }
+    body.theme-green header nav a { color:#86c89e; }
+    body.theme-green .prop-card { background:#142a1a; border-color:rgba(34,197,94,.15); }
+    body.theme-green .prop-card .price { color:#4ade80 !important; }
+    body.theme-green .filter-bar input { background:rgba(255,255,255,.05); border-color:rgba(34,197,94,.2); color:#fff; }
+    body.theme-green .filter-bar select { background:rgba(255,255,255,.05); border-color:rgba(34,197,94,.2); color:#fff; }
+    body.theme-green .filters-row { background:rgba(255,255,255,.03); border-color:rgba(34,197,94,.1); }
+    body.theme-green .quick-filter { border-color:rgba(34,197,94,.2); }
+    body.theme-green .quick-filter:hover, body.theme-green .quick-filter.active { background:#22c55e; border-color:#22c55e; color:#fff; }
+    body.theme-green .btn-primary { background:linear-gradient(135deg,#16a34a,#22c55e) !important; }
+    body.theme-green .badge-sale { background:rgba(34,197,94,.15) !important; color:#4ade80 !important; }
+    body.theme-green .hero-section .badge { background:rgba(34,197,94,.15); border-color:rgba(34,197,94,.25); color:#4ade80 !important; }
+    body.theme-green .accent-color { color:#4ade80 !important; }
+    body.theme-green .demo-footer { border-color:rgba(34,197,94,.15); }
+
+    .accent-color { color:#7c3aed; }
+
+    header { position:sticky; top:0; z-index:100; transition:background .4s, border-color .4s; border-bottom:1px solid; }
+    header .inner { max-width:1200px; margin:0 auto; padding:14px 24px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+    header .logo { font-size:1.2rem; font-weight:900; }
+    header .logo .accent { color:#7c3aed; }
+    header nav { display:flex; gap:20px; font-size:.85rem; }
+    header nav a { text-decoration:none; font-weight:500; transition:color .2s; }
+    header nav a:hover { color:#7c3aed; }
+    header .btn-sm { padding:6px 16px; background:#111; color:#fff; border-radius:50px; text-decoration:none; font-size:.8rem; font-weight:600; transition:background .2s; }
+    header .btn-sm:hover { background:#7c3aed; }
+
+    .demo-bar { text-align:center; padding:6px; font-size:.75rem; font-weight:600; background:#7c3aed; color:#fff; }
+
+    .controls-panel { max-width:1200px; margin:16px auto 0; padding:0 24px; display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+    .controls-panel .ctrl-group { display:flex; gap:6px; align-items:center; background:rgba(255,255,255,.05); padding:6px 12px; border-radius:50px; border:1px solid rgba(255,255,255,.08); }
+    .controls-panel .ctrl-group label { font-size:.7rem; text-transform:uppercase; letter-spacing:1px; opacity:.5; margin-right:4px; }
+    .controls-panel button { padding:6px 14px; border-radius:50px; border:1px solid rgba(255,255,255,.1); background:transparent; color:inherit; cursor:pointer; font-size:.75rem; font-weight:500; font-family:'Inter',sans-serif; transition:all .2s; }
+    .controls-panel button:hover { border-color:#7c3aed; background:rgba(124,58,237,.1); }
+    .controls-panel button.active { background:#7c3aed; border-color:#7c3aed; color:#fff; }
+
+    .hero-section { text-align:center; padding:36px 24px 24px; }
+    .hero-section h1 { font-size:clamp(1.5rem,4vw,2.2rem); font-weight:800; margin-bottom:6px; }
+    .hero-section p { opacity:.7; }
+    .hero-section .badge { display:inline-block; padding:4px 14px; background:rgba(124,58,237,.15); border:1px solid rgba(124,58,237,.25); border-radius:50px; font-size:.75rem; margin-bottom:12px; color:#a78bfa; }
+
+    .filter-bar { max-width:600px; margin:16px auto; padding:0 24px; display:flex; gap:0; border-radius:10px; overflow:hidden; }
+    .filter-bar input { flex:1; padding:12px 16px; border:none; font-size:.9rem; font-family:'Inter',sans-serif; outline:none; }
+    .filter-bar button { padding:12px 24px; border:none; font-weight:700; cursor:pointer; font-size:.9rem; background:linear-gradient(135deg,#7c3aed,#6d28d9); color:#fff; transition:opacity .2s; }
+    .filter-bar button:hover { opacity:.9; }
+
+    .quick-filters { max-width:1200px; margin:8px auto; padding:0 24px; display:flex; gap:6px; flex-wrap:wrap; justify-content:center; }
+    .quick-filter { padding:6px 16px; border-radius:50px; border:1px solid; background:transparent; color:inherit; cursor:pointer; font-size:.78rem; font-family:'Inter',sans-serif; transition:all .2s; font-weight:500; }
+    .quick-filter:hover { border-color:#7c3aed; }
+    .quick-filter.active { background:#7c3aed; border-color:#7c3aed; color:#fff; }
+
+    .filters-row { max-width:1200px; margin:12px auto; padding:12px 24px; border-radius:10px; border:1px solid; display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+    .filters-row select { padding:8px 12px; border-radius:6px; border:1px solid; font-size:.8rem; font-family:'Inter',sans-serif; cursor:pointer; transition:all .4s; }
+    .filters-row .btn-apply { padding:8px 18px; border-radius:6px; border:none; font-weight:600; cursor:pointer; font-size:.8rem; font-family:'Inter',sans-serif; background:linear-gradient(135deg,#7c3aed,#6d28d9); color:#fff; transition:transform .2s; }
+    .filters-row .btn-apply:hover { transform:translateY(-1px); }
+
+    .properties-grid { max-width:1200px; margin:20px auto 40px; padding:0 24px; display:grid; gap:18px; transition:all .4s; }
+    .properties-grid.grid { grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); }
+    .properties-grid.list { grid-template-columns:1fr; }
+    .properties-grid.list .prop-card { display:flex; gap:16px; }
+    .properties-grid.list .prop-card .prop-img { width:200px; height:auto; min-height:140px; flex-shrink:0; }
+    .properties-grid.list .prop-card .info { flex:1; }
+
+    .prop-card { border-radius:12px; overflow:hidden; border:1px solid; transition:transform .3s, box-shadow .3s, background .4s, border-color .4s; }
+    .prop-card:hover { transform:translateY(-4px); }
+    .prop-card .prop-img { height:180px; display:flex; align-items:center; justify-content:center; font-size:2.5rem; color:#fff; position:relative; }
+    .prop-card .prop-img .badge-ribbon { position:absolute; top:10px; left:10px; padding:3px 10px; background:rgba(0,0,0,.5); border-radius:50px; font-size:.65rem; font-weight:600; }
+    .prop-card .info { padding:14px; }
+    .prop-card .info h3 { font-size:1rem; font-weight:700; }
+    .prop-card .info .loc { font-size:.78rem; opacity:.5; margin:4px 0; }
+    .prop-card .info .loc i { margin-right:4px; }
+    .prop-card .info .features { display:flex; gap:10px; font-size:.75rem; opacity:.6; margin:6px 0; }
+    .prop-card .info .price { font-size:1.3rem; font-weight:800; color:#7c3aed; }
+    .prop-card .info .price small { font-size:.7rem; font-weight:400; opacity:.5; }
+
+    .demo-footer { text-align:center; padding:20px; font-size:.8rem; border-top:1px solid; transition:all .4s; }
+    .demo-footer a { color:#7c3aed; text-decoration:none; }
+
+    @media(max-width:640px) { header .inner { justify-content:center; } header nav { gap:12px; } .properties-grid.grid { grid-template-columns:1fr; } .properties-grid.list .prop-card { flex-direction:column; } .properties-grid.list .prop-card .prop-img { width:100%; height:160px; } }
+  </style>
+</head>
+<body class="theme-dark">
+  <div class="demo-bar"><i class="fas fa-flask"></i> Demo interactiva &mdash; Cambia el tema y filtra propiedades</div>
+  <header>
+    <div class="inner">
+      <div class="logo">Vive<span class="accent">Prime</span></div>
+      <nav><a href="#">Comprar</a><a href="#">Rentar</a><a href="#">Contacto</a></nav>
+      <a href="#" class="btn-sm"><i class="fas fa-phone"></i> Contactar</a>
+    </div>
+  </header>
+
+  <div class="controls-panel" id="controls">
+    <div class="ctrl-group">
+      <label>Tema</label>
+      <button data-theme="dark" class="active">Oscuro</button>
+      <button data-theme="light">Claro</button>
+      <button data-theme="green">Verde</button>
+    </div>
+    <div class="ctrl-group">
+      <label>Vista</label>
+      <button data-layout="grid" class="active">Cuadrícula</button>
+      <button data-layout="list">Lista</button>
+    </div>
+    <div class="ctrl-group">
+      <label>Moneda</label>
+      <button data-currency="mxn" class="active">MXN</button>
+      <button data-currency="usd">USD</button>
+    </div>
+  </div>
+
+  <div class="hero-section">
+    <div class="badge"><i class="fas fa-building"></i> Propiedades premium</div>
+    <h1 id="heroTitle">Encuentra tu hogar ideal</h1>
+    <p id="heroDesc">Casas, departamentos y terrenos en las mejores zonas</p>
+  </div>
+
+  <div class="filter-bar">
+    <input type="text" placeholder="Buscar por ubicación..." id="searchInput">
+    <button id="searchBtn"><i class="fas fa-search"></i> Buscar</button>
+  </div>
+
+  <div class="quick-filters" id="quickFilters">
+    <button class="quick-filter active" data-type="all">Todos</button>
+    <button class="quick-filter" data-type="casa">Casas</button>
+    <button class="quick-filter" data-type="departamento">Departamentos</button>
+    <button class="quick-filter" data-type="terreno">Terrenos</button>
+    <button class="quick-filter" data-type="local">Locales</button>
+  </div>
+
+  <div class="filters-row">
+    <select id="bedrooms"><option value="0">Cualquier habitación</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4+</option></select>
+    <select id="sort"><option value="default">Ordenar</option><option value="price-asc">Menor precio</option><option value="price-desc">Mayor precio</option></select>
+    <button class="btn-apply" id="applyFilters"><i class="fas fa-sliders-h"></i> Aplicar</button>
+  </div>
+
+  <div class="properties-grid grid" id="properties"></div>
+
+  <div class="demo-footer">Demo dinámica &mdash; <a href="../index.html">Next Crim<sup>&reg;</sup></a></div>
+
+  <script>
+    const properties = [
+      { id:1, type:'casa', name:'Casa 3 recámaras', loc:'Colonia Del Valle, CDMX', beds:3, baths:2, sqm:180, priceMxn:250000, priceUsd:12500, icon:'fa-home', color:'#7c3aed', tag:'Venta' },
+      { id:2, type:'departamento', name:'Departamento 2 recámaras', loc:'Polanco, CDMX', beds:2, baths:2, sqm:110, priceMxn:180000, priceUsd:9000, icon:'fa-city', color:'#6d28d9', tag:'Venta' },
+      { id:3, type:'departamento', name:'Penthouse 3 recámaras', loc:'Santa Fe, CDMX', beds:3, baths:3, sqm:200, priceMxn:35000, priceUsd:1750, icon:'fa-building', color:'#8b5cf6', tag:'Renta' },
+      { id:4, type:'terreno', name:'Terreno residencial', loc:'Interlomas, EDOMEX', beds:0, baths:0, sqm:500, priceMxn:320000, priceUsd:16000, icon:'fa-tree', color:'#9333ea', tag:'Venta' },
+      { id:5, type:'local', name:'Local comercial', loc:'Centro, CDMX', beds:0, baths:1, sqm:80, priceMxn:150000, priceUsd:7500, icon:'fa-store', color:'#a855f7', tag:'Venta' },
+      { id:6, type:'casa', name:'Casa con jardín', loc:'Coyoacán, CDMX', beds:4, baths:3, sqm:250, priceMxn:28000, priceUsd:1400, icon:'fa-home', color:'#c084fc', tag:'Renta' },
+      { id:7, type:'casa', name:'Casa campestre', loc:'Tepoztlán, MORELOS', beds:3, baths:2, sqm:350, priceMxn:450000, priceUsd:22500, icon:'fa-tree', color:'#7c3aed', tag:'Venta' },
+      { id:8, type:'departamento', name:'Departamento estudio', loc:'Roma Norte, CDMX', beds:1, baths:1, sqm:55, priceMxn:8500, priceUsd:425, icon:'fa-city', color:'#6d28d9', tag:'Renta' },
+    ];
+
+    const heroData = {
+      dark:{ title:'Encuentra tu hogar ideal', desc:'Casas, departamentos y terrenos en las mejores zonas' },
+      light:{ title:'La propiedad perfecta te espera', desc:'Explora nuestro catálogo con filtros inteligentes' },
+      green:{ title:'Tu próximo hogar', desc:'Propiedades seleccionadas con los mejores estándares' },
+    };
+
+    let theme = 'dark', layout = 'grid', currency = 'mxn', type = 'all', search = '', bedrooms = 0, sort = 'default';
+
+    function renderProperties() {
+      const container = document.getElementById('properties');
+      let filtered = [...properties];
+      if (type !== 'all') filtered = filtered.filter(p => p.type === type);
+      if (search) filtered = filtered.filter(p => p.loc.toLowerCase().includes(search.toLowerCase()) || p.name.toLowerCase().includes(search.toLowerCase()));
+      if (bedrooms > 0) filtered = filtered.filter(p => p.beds >= bedrooms || (bedrooms === 4 && p.beds >= 4));
+      if (sort === 'price-asc') filtered.sort((a,b) => a.priceMxn - b.priceMxn);
+      if (sort === 'price-desc') filtered.sort((a,b) => b.priceMxn - a.priceMxn);
+
+      const symbol = currency === 'mxn' ? '$' : 'USD $';
+      const rate = currency === 'mxn' ? 1 : 1/20;
+
+      container.innerHTML = filtered.map(p => `
+        <div class="prop-card">
+          <div class="prop-img" style="background:${p.color}">
+            <span class="badge-ribbon">${p.tag}</span>
+            <i class="fas ${p.icon}"></i>
+          </div>
+          <div class="info">
+            <h3>${p.name}</h3>
+            <div class="loc"><i class="fas fa-map-marker-alt accent-color"></i> ${p.loc}</div>
+            <div class="features">
+              ${p.beds ? `<span><i class="fas fa-bed"></i> ${p.beds} rec</span>` : ''}
+              ${p.baths ? `<span><i class="fas fa-bath"></i> ${p.baths} baños</span>` : ''}
+              <span><i class="fas fa-arrows-alt"></i> ${p.sqm}m²</span>
+            </div>
+            <div class="price">${symbol}${Math.round(p.priceMxn * rate).toLocaleString()} <small>${p.tag === 'Renta' ? '/ mes' : ''}</small></div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function setTheme(t) {
+      theme = t;
+      document.body.className = `theme-${t}`;
+      document.querySelectorAll('[data-theme]').forEach(b => b.classList.toggle('active', b.dataset.theme === t));
+      const h = heroData[t];
+      document.getElementById('heroTitle').textContent = h.title;
+      document.getElementById('heroDesc').textContent = h.desc;
+      if (t === 'green') {
+        document.querySelectorAll('.accent-color').forEach(el => el.style.color = '#4ade80');
+      } else {
+        document.querySelectorAll('.accent-color').forEach(el => el.style.color = '');
+      }
+    }
+
+    function setLayout(l) {
+      layout = l;
+      document.getElementById('properties').className = `properties-grid ${l}`;
+      document.querySelectorAll('[data-layout]').forEach(b => b.classList.toggle('active', b.dataset.layout === l));
+    }
+
+    document.getElementById('controls').addEventListener('click', e => {
+      const btn = e.target.closest('button');
+      if (!btn) return;
+      if (btn.dataset.theme) setTheme(btn.dataset.theme);
+      if (btn.dataset.layout) setLayout(btn.dataset.layout);
+      if (btn.dataset.currency) {
+        currency = btn.dataset.currency;
+        document.querySelectorAll('[data-currency]').forEach(b => b.classList.toggle('active', b.dataset.currency === currency));
+        renderProperties();
+      }
+    });
+
+    document.getElementById('quickFilters').addEventListener('click', e => {
+      const btn = e.target.closest('.quick-filter');
+      if (!btn) return;
+      type = btn.dataset.type;
+      document.querySelectorAll('.quick-filter').forEach(b => b.classList.toggle('active', b.dataset.type === type));
+      renderProperties();
+    });
+
+    document.getElementById('searchBtn').addEventListener('click', () => {
+      search = document.getElementById('searchInput').value;
+      renderProperties();
+    });
+    document.getElementById('searchInput').addEventListener('keyup', e => { if (e.key === 'Enter') { search = e.target.value; renderProperties(); } });
+
+    document.getElementById('applyFilters').addEventListener('click', () => {
+      bedrooms = parseInt(document.getElementById('bedrooms').value);
+      sort = document.getElementById('sort').value;
+      renderProperties();
+    });
+
+    renderProperties();
+  </script>
+</body>
+</html>

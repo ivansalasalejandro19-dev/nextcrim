@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Demo Dinámica - Tienda Online | Next Crim®</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; line-height:1.6; transition:background .4s, color .4s; }
+
+    /* === THEMES === */
+    body.theme-dark { background:#0a0a0a; color:#fff; }
+    body.theme-dark header { background:#111; border-color:#222; }
+    body.theme-dark header nav a { color:#aaa; }
+    body.theme-dark .product-card { background:#1a1a1a; border-color:#222; }
+    body.theme-dark .product-card .price { color:#a78bfa; }
+    body.theme-dark .demo-footer { border-color:#222; color:#666; }
+
+    body.theme-light { background:#f8f8f8; color:#111; }
+    body.theme-light header { background:#fff; border-color:#eee; }
+    body.theme-light header nav a { color:#555; }
+    body.theme-light .product-card { background:#fff; border-color:#eee; }
+    body.theme-light .product-card .price { color:#7c3aed; }
+    body.theme-light .demo-footer { border-color:#e0e0e0; color:#888; }
+
+    body.theme-purple { background:#0d0a1a; color:#fff; }
+    body.theme-purple header { background:#140b2e; border-color:rgba(124,58,237,.2); }
+    body.theme-purple header nav a { color:#b8a0e0; }
+    body.theme-purple .product-card { background:#1a0f33; border-color:rgba(124,58,237,.15); }
+    body.theme-purple .product-card .price { color:#c084fc; }
+    body.theme-purple .demo-footer { border-color:rgba(124,58,237,.15); color:#7c6a9a; }
+
+    /* === LAYOUT === */
+    header { position:sticky; top:0; z-index:100; transition:background .4s, border-color .4s; }
+    header .inner { max-width:1200px; margin:0 auto; padding:14px 24px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+    header .logo { font-size:1.2rem; font-weight:900; }
+    header .logo .accent { color:#7c3aed; }
+    header nav { display:flex; gap:20px; font-size:.85rem; }
+    header nav a { text-decoration:none; font-weight:500; transition:color .2s; }
+    header nav a:hover { color:#7c3aed; }
+    header .cart-icon { font-size:1.1rem; cursor:pointer; position:relative; }
+    header .cart-icon span { background:#7c3aed; color:#fff; font-size:.65rem; padding:1px 5px; border-radius:50%; position:absolute; top:-6px; right:-8px; }
+
+    .demo-bar { text-align:center; padding:6px; font-size:.75rem; font-weight:600; background:#7c3aed; color:#fff; }
+
+    .hero-section { text-align:center; padding:48px 24px; }
+    .hero-section h1 { font-size:clamp(1.5rem,4vw,2.2rem); font-weight:800; margin-bottom:6px; }
+    .hero-section p { opacity:.7; font-size:1rem; }
+    .hero-section .badge { display:inline-block; padding:4px 14px; background:rgba(124,58,237,.15); border:1px solid rgba(124,58,237,.25); border-radius:50px; font-size:.75rem; margin-bottom:12px; color:#a78bfa; }
+
+    .controls-panel { max-width:1200px; margin:16px auto; padding:0 24px; display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+    .controls-panel .ctrl-group { display:flex; gap:6px; align-items:center; background:rgba(255,255,255,.05); padding:6px 12px; border-radius:50px; border:1px solid rgba(255,255,255,.08); }
+    .controls-panel .ctrl-group label { font-size:.7rem; text-transform:uppercase; letter-spacing:1px; opacity:.5; margin-right:4px; }
+    .controls-panel button { padding:6px 14px; border-radius:50px; border:1px solid rgba(255,255,255,.1); background:transparent; color:inherit; cursor:pointer; font-size:.75rem; font-weight:500; font-family:'Inter',sans-serif; transition:all .2s; }
+    .controls-panel button:hover { border-color:#7c3aed; background:rgba(124,58,237,.1); }
+    .controls-panel button.active { background:#7c3aed; border-color:#7c3aed; color:#fff; }
+
+    .categories { max-width:1200px; margin:16px auto 8px; padding:0 24px; display:flex; gap:8px; flex-wrap:wrap; }
+    .categories button { padding:6px 16px; border-radius:50px; border:1px solid rgba(255,255,255,.1); background:transparent; color:inherit; cursor:pointer; font-size:.8rem; font-family:'Inter',sans-serif; transition:all .2s; }
+    .categories button:hover { border-color:#7c3aed; }
+    .categories button.active { background:#7c3aed; border-color:#7c3aed; color:#fff; }
+
+    .products-grid { max-width:1200px; margin:16px auto 40px; padding:0 24px; display:grid; gap:16px; transition:all .4s; }
+    .products-grid.grid { grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); }
+    .products-grid.list { grid-template-columns:1fr; }
+    .products-grid.list .product-card { display:flex; gap:16px; align-items:center; }
+    .products-grid.list .product-card .prod-img { width:100px; height:100px; flex-shrink:0; }
+    .products-grid.list .product-card .info { flex:1; }
+
+    .product-card { border-radius:12px; padding:16px; transition:transform .3s, box-shadow .3s, background .4s, border-color .4s; border:1px solid transparent; }
+    .product-card:hover { transform:translateY(-3px); }
+    .product-card .prod-img { height:140px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:2.2rem; color:#fff; margin-bottom:10px; }
+    .product-card .info h3 { font-size:.95rem; font-weight:700; margin-bottom:2px; }
+    .product-card .info .desc { font-size:.78rem; opacity:.5; margin-bottom:6px; }
+    .product-card .info .price-row { display:flex; align-items:center; gap:8px; }
+    .product-card .info .price { font-size:1.2rem; font-weight:800; }
+    .product-card .info .old-price { font-size:.8rem; opacity:.4; text-decoration:line-through; }
+
+    .demo-footer { text-align:center; padding:20px; font-size:.8rem; border-top:1px solid; transition:all .4s; }
+    .demo-footer a { color:#7c3aed; text-decoration:none; }
+
+    .badge-offer { display:inline-block; padding:2px 8px; background:#e11d48; color:#fff; border-radius:4px; font-size:.65rem; font-weight:700; margin-left:6px; }
+
+    @media(max-width:640px) { header .inner { justify-content:center; } header nav { gap:12px; } .products-grid.grid { grid-template-columns:1fr; } .controls-panel .ctrl-group { flex-wrap:wrap; } }
+  </style>
+</head>
+<body class="theme-dark">
+  <div class="demo-bar"><i class="fas fa-flask"></i> Demo interactiva &mdash; Los botones de abajo cambian el tema y la vista</div>
+  <header>
+    <div class="inner">
+      <div class="logo">Electro<span class="accent">Market</span></div>
+      <nav>
+        <a href="#">Inicio</a>
+        <a href="#">Catálogo</a>
+        <a href="#">Ofertas</a>
+      </nav>
+      <div class="cart-icon"><i class="fas fa-shopping-cart"></i><span>0</span></div>
+    </div>
+  </header>
+
+  <div class="controls-panel" id="controls">
+    <div class="ctrl-group">
+      <label>Tema</label>
+      <button data-theme="dark" class="active">Oscuro</button>
+      <button data-theme="light">Claro</button>
+      <button data-theme="purple">Morado</button>
+    </div>
+    <div class="ctrl-group">
+      <label>Vista</label>
+      <button data-layout="grid" class="active">Cuadrícula</button>
+      <button data-layout="list">Lista</button>
+    </div>
+    <div class="ctrl-group">
+      <label>Ofertas</label>
+      <button data-offers="all" class="active">Todos</button>
+      <button data-offers="sale">Solo ofertas</button>
+    </div>
+  </div>
+
+  <div class="hero-section">
+    <div class="badge"><i class="fas fa-bolt"></i> Productos para tu hogar</div>
+    <h1 id="heroTitle">Tienda de Electrodomésticos</h1>
+    <p id="heroDesc">Catálogo interactivo con productos, carrito y promociones</p>
+  </div>
+
+  <div class="categories" id="categories"></div>
+  <div class="products-grid grid" id="products"></div>
+
+  <div class="demo-footer">
+    Demo dinámica &mdash; <a href="../index.html">Next Crim<sup>&reg;</sup></a>
+  </div>
+
+  <script>
+    const products = [
+      { id:1, name:'Refrigerador No Frost', desc:'400L, eficiencia A+', price:899, oldPrice:1099, icon:'fa-snowflake', cat:'refrigeracion', sale:true, color:'#7c3aed' },
+      { id:2, name:'Lavadora Digital', desc:'18kg, programa rápido', price:699, oldPrice:899, icon:'fa-tshirt', cat:'lavanderia', sale:true, color:'#6d28d9' },
+      { id:3, name:'Microondas Digital', desc:'25L, panel táctil', price:299, oldPrice:379, icon:'fa-fire', cat:'cocina', sale:true, color:'#8b5cf6' },
+      { id:4, name:'Aire Acondicionado', desc:'12,000 BTU, frío/calor', price:1299, oldPrice:1599, icon:'fa-fan', cat:'clima', sale:true, color:'#9333ea' },
+      { id:5, name:'Licuadora Profesional', desc:'1200W, 10 velocidades', price:129, oldPrice:179, icon:'fa-blender', cat:'cocina', sale:true, color:'#a855f7' },
+      { id:6, name:'Cafetera Espresso', desc:'15 bares, vapor', price:249, oldPrice:329, icon:'fa-coffee', cat:'cocina', sale:true, color:'#c084fc' },
+      { id:7, name:'Aspiradora Robot', desc:'Autonomía 120min', price:449, oldPrice:599, icon:'fa-robot', cat:'limpieza', sale:true, color:'#7c3aed' },
+      { id:8, name:'Televisor 55" 4K', desc:'Smart TV, HDR', price:799, oldPrice:999, icon:'fa-tv', cat:'entretenimiento', sale:true, color:'#6d28d9' },
+      { id:9, name:'Plancha de Vapor', desc:'2000W, suela cerámica', price:79, oldPrice:null, icon:'fa-iron', cat:'cuidado', sale:false, color:'#8b5cf6' },
+    ];
+
+    const categories = ['todas','refrigeracion','lavanderia','cocina','clima','limpieza','entretenimiento'];
+
+    let currentTheme = 'dark';
+    let currentLayout = 'grid';
+    let currentCat = 'todas';
+    let showOffers = 'all';
+
+    const heroData = {
+      dark: { title:'Tienda de Electrodomésticos', desc:'Catálogo interactivo con productos, carrito y promociones' },
+      light: { title:'Tu tienda de confianza', desc:'Los mejores electrodomésticos para tu hogar' },
+      purple: { title:'Premium Home Store', desc:'Productos seleccionados con la mejor calidad' },
+    };
+
+    function renderCategories() {
+      const container = document.getElementById('categories');
+      container.innerHTML = categories.map(c =>
+        `<button class="${c===currentCat?'active':''}" data-cat="${c}">${c.charAt(0).toUpperCase()+c.slice(1)}</button>`
+      ).join('');
+      container.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+        currentCat = b.dataset.cat;
+        container.querySelectorAll('button').forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+        renderProducts();
+      }));
+    }
+
+    function renderProducts() {
+      const container = document.getElementById('products');
+      let filtered = [...products];
+      if (currentCat !== 'todas') filtered = filtered.filter(p => p.cat === currentCat);
+      if (showOffers === 'sale') filtered = filtered.filter(p => p.sale);
+
+      container.innerHTML = filtered.map(p => `
+        <div class="product-card">
+          <div class="prod-img" style="background:${p.color}">
+            <i class="fas ${p.icon}"></i>
+          </div>
+          <div class="info">
+            <h3>${p.name}</h3>
+            <div class="desc">${p.desc}</div>
+            <div class="price-row">
+              <span class="price">$${p.price}</span>
+              ${p.oldPrice ? `<span class="old-price">$${p.oldPrice}</span>` : ''}
+              ${p.sale ? '<span class="badge-offer">Oferta</span>' : ''}
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function setTheme(theme) {
+      currentTheme = theme;
+      document.body.className = `theme-${theme}`;
+      const h = heroData[theme];
+      document.getElementById('heroTitle').textContent = h.title;
+      document.getElementById('heroDesc').textContent = h.desc;
+      document.querySelectorAll('[data-theme]').forEach(b => b.classList.toggle('active', b.dataset.theme === theme));
+    }
+
+    function setLayout(layout) {
+      currentLayout = layout;
+      const grid = document.getElementById('products');
+      grid.className = `products-grid ${layout}`;
+      document.querySelectorAll('[data-layout]').forEach(b => b.classList.toggle('active', b.dataset.layout === layout));
+    }
+
+    // Controls
+    document.getElementById('controls').addEventListener('click', e => {
+      const btn = e.target.closest('button');
+      if (!btn) return;
+      if (btn.dataset.theme) setTheme(btn.dataset.theme);
+      if (btn.dataset.layout) setLayout(btn.dataset.layout);
+      if (btn.dataset.offers) {
+        showOffers = btn.dataset.offers;
+        document.querySelectorAll('[data-offers]').forEach(b => b.classList.toggle('active', b.dataset.offers === showOffers));
+        renderProducts();
+      }
+    });
+
+    renderCategories();
+    renderProducts();
+  </script>
+</body>
+</html>

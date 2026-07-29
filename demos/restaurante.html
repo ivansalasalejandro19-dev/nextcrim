@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Demo Dinámica - Restaurante | Next Crim®</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; line-height:1.6; transition:background .4s, color .4s; }
+
+    body.theme-dark { background:#0a0a0a; color:#fff; }
+    body.theme-dark header { background:#111; border-color:#222; }
+    body.theme-dark .card { background:#1a1a1a; border-color:#222; }
+    body.theme-dark .menu-item { border-color:#222; }
+
+    body.theme-light { background:#faf8f5; color:#1a1a1a; }
+    body.theme-light header { background:#fff; border-color:#eee; }
+    body.theme-light header nav a { color:#555; }
+    body.theme-light .card { background:#fff; border-color:#eee; }
+    body.theme-light .menu-item { border-color:#e5e0d5; }
+
+    body.theme-warm { background:#1a0f0a; color:#fff; }
+    body.theme-warm header { background:#24140b; border-color:rgba(217,119,6,.2); }
+    body.theme-warm header nav a { color:#d4a574; }
+    body.theme-warm .card { background:#2a1a0e; border-color:rgba(217,119,6,.15); }
+    body.theme-warm .menu-item { border-color:rgba(217,119,6,.1); }
+    body.theme-warm .accent-main { color:#f59e0b !important; }
+    body.theme-warm .btn-primary { background:linear-gradient(135deg,#d97706,#f59e0b) !important; }
+    body.theme-warm .badge { background:rgba(217,119,6,.15); border-color:rgba(217,119,6,.25); color:#f59e0b !important; }
+    body.theme-warm .demo-footer { border-color:rgba(217,119,6,.15); }
+    body.theme-warm .menu-cat { color:#f59e0b !important; border-color:rgba(217,119,6,.2) !important; }
+
+    .accent-main { color:#d97706; }
+
+    header { position:sticky; top:0; z-index:100; transition:background .4s, border-color .4s; border-bottom:1px solid; }
+    header .inner { max-width:1200px; margin:0 auto; padding:14px 24px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+    header .logo { font-family:'Playfair Display',serif; font-size:1.4rem; }
+    header .logo .accent { color:#d97706; }
+    header nav { display:flex; gap:20px; font-size:.85rem; }
+    header nav a { text-decoration:none; font-weight:500; transition:color .2s; }
+    header nav a:hover { color:#d97706; }
+    header .btn-sm { padding:6px 16px; background:linear-gradient(135deg,#d97706,#b45309); color:#fff; border-radius:50px; text-decoration:none; font-size:.8rem; font-weight:600; }
+
+    .demo-bar { text-align:center; padding:6px; font-size:.75rem; font-weight:600; background:#d97706; color:#fff; }
+
+    .hero-section { min-height:40vh; display:flex; align-items:center; justify-content:center; text-align:center; padding:48px 24px; transition:background .4s; }
+    .hero-section h1 { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,5vw,3rem); margin-bottom:8px; }
+    .hero-section p { opacity:.7; font-size:1rem; }
+
+    .controls-panel { max-width:1200px; margin:16px auto 0; padding:0 24px; display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+    .controls-panel .ctrl-group { display:flex; gap:6px; align-items:center; background:rgba(255,255,255,.05); padding:6px 12px; border-radius:50px; border:1px solid rgba(255,255,255,.08); }
+    .controls-panel .ctrl-group label { font-size:.7rem; text-transform:uppercase; letter-spacing:1px; opacity:.5; margin-right:4px; }
+    .controls-panel button { padding:6px 14px; border-radius:50px; border:1px solid rgba(255,255,255,.1); background:transparent; color:inherit; cursor:pointer; font-size:.75rem; font-weight:500; font-family:'Inter',sans-serif; transition:all .2s; }
+    .controls-panel button:hover { border-color:#d97706; background:rgba(217,119,6,.1); }
+    .controls-panel button.active { background:#d97706; border-color:#d97706; color:#fff; }
+
+    .menu-section { max-width:700px; margin:24px auto 40px; padding:0 24px; }
+    .menu-cat { font-size:1.1rem; font-weight:700; color:#d97706; margin:20px 0 10px; padding-bottom:6px; border-bottom:1px solid; }
+    .menu-item { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px dashed; }
+    .menu-item .name { font-weight:600; font-size:.9rem; }
+    .menu-item .desc { font-size:.78rem; opacity:.5; margin-top:2px; }
+    .menu-item .price { font-weight:800; font-size:.95rem; white-space:nowrap; }
+    .menu-item .badge-diet { display:inline-block; padding:1px 6px; font-size:.6rem; font-weight:700; border-radius:4px; margin-left:6px; background:rgba(34,197,94,.2); color:#22c55e; }
+
+    .gallery { max-width:900px; margin:0 auto 40px; padding:0 24px; display:grid; gap:10px; }
+    .gallery.grid-3 { grid-template-columns:repeat(3,1fr); }
+    .gallery.grid-2 { grid-template-columns:repeat(2,1fr); }
+    .gallery.grid-1 { grid-template-columns:1fr; }
+    .gallery-item { aspect-ratio:4/3; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:2rem; color:#fff; }
+
+    .reservation { max-width:450px; margin:0 auto 40px; padding:24px; text-align:center; }
+    .reservation h2 { font-family:'Playfair Display',serif; font-size:1.5rem; margin-bottom:4px; }
+    .reservation p { font-size:.85rem; opacity:.5; margin-bottom:16px; }
+    .reservation form { display:flex; flex-direction:column; gap:8px; }
+    .reservation form input, .reservation form select { padding:10px 14px; border-radius:8px; border:1px solid rgba(255,255,255,.1); background:rgba(255,255,255,.05); color:inherit; font-family:'Inter',sans-serif; font-size:.85rem; }
+    .reservation form button { padding:12px; border:none; border-radius:8px; font-weight:700; cursor:pointer; font-family:'Inter',sans-serif; font-size:.9rem; background:linear-gradient(135deg,#d97706,#b45309); color:#fff; transition:transform .2s; }
+    .reservation form button:hover { transform:translateY(-2px); }
+
+    .demo-footer { text-align:center; padding:20px; font-size:.8rem; border-top:1px solid; transition:all .4s; }
+    .demo-footer a { color:#d97706; text-decoration:none; }
+
+    @media(max-width:640px) { header .inner { justify-content:center; } header nav { gap:12px; } .gallery.grid-3, .gallery.grid-2 { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body class="theme-dark">
+  <div class="demo-bar"><i class="fas fa-flask"></i> Demo interactiva &mdash; Cambia el tema y explora el menú</div>
+  <header>
+    <div class="inner">
+      <div class="logo">Gusto<span class="accent">.</span></div>
+      <nav><a href="#">Inicio</a><a href="#">Menú</a><a href="#">Galería</a></nav>
+      <a href="#" class="btn-sm"><i class="fas fa-calendar-alt"></i> Reservar</a>
+    </div>
+  </header>
+
+  <div class="controls-panel" id="controls">
+    <div class="ctrl-group">
+      <label>Tema</label>
+      <button data-theme="dark" class="active">Oscuro</button>
+      <button data-theme="light">Claro</button>
+      <button data-theme="warm">Cálido</button>
+    </div>
+    <div class="ctrl-group">
+      <label>Galeria</label>
+      <button data-gallery="3" class="active">3 cols</button>
+      <button data-gallery="2">2 cols</button>
+      <button data-gallery="1">1 col</button>
+    </div>
+  </div>
+
+  <div class="hero-section">
+    <h1 id="heroTitle">Cocina que enamora</h1>
+    <p id="heroDesc">Ingredientes frescos, recetas tradicionales, experiencias únicas</p>
+  </div>
+
+  <div class="menu-section" id="menu"></div>
+
+  <div class="gallery grid-3" id="gallery"></div>
+
+  <div class="reservation">
+    <h2>Reservaciones</h2>
+    <p>Aparta tu mesa</p>
+    <form><input type="text" placeholder="Nombre"><input type="tel" placeholder="Teléfono"><select><option>2 personas</option><option>4 personas</option><option>6+ personas</option></select><input type="date"><button type="submit">Reservar</button></form>
+  </div>
+
+  <div class="demo-footer">Demo dinámica &mdash; <a href="../index.html">Next Crim<sup>&reg;</sup></a></div>
+
+  <script>
+    const menuData = [
+      { cat:'Entradas', items:[
+        { name:'Bruschetta clásica', desc:'Pan artesanal, tomate, albahaca', price:12, diet:'v' },
+        { name:'Carpaccio de res', desc:'Finas láminas con parmesano', price:15 },
+        { name:'Crema de calabaza', desc:'Con jengibre y crutones', price:10, diet:'v' },
+      ]},
+      { cat:'Platos fuertes', items:[
+        { name:'Pasta al pesto', desc:'Tallarines con albahaca y piñones', price:18, diet:'v' },
+        { name:'Risotto de hongos', desc:'Arroz cremoso con hongos silvestres', price:20, diet:'v' },
+        { name:'Salmón glaseado', desc:'Con miel de maple y vegetales', price:24 },
+      ]},
+      { cat:'Postres', items:[
+        { name:'Tiramisú', desc:'Clásico italiano con mascarpone', price:11, diet:'v' },
+        { name:'Flan de caramelo', desc:'Receta tradicional', price:9, diet:'v' },
+        { name:'Cheesecake', desc:'New York con frutos rojos', price:10 },
+      ]},
+    ];
+
+    const galleryIcons = ['fa-utensils','fa-wine-bottle','fa-birthday-cake','fa-coffee','fa-salad','fa-drumstick-bite'];
+
+    const heroData = {
+      dark: { title:'Cocina que enamora', desc:'Ingredientes frescos, recetas tradicionales, experiencias únicas' },
+      light: { title:'Sabores auténticos', desc:'Tradición y creatividad en cada plato' },
+      warm: { title:'Fuego & Sazón', desc:'Cocina de autor con los mejores ingredientes' },
+    };
+
+    let theme = 'dark', galleryCols = 3;
+
+    function renderMenu() {
+      const container = document.getElementById('menu');
+      container.innerHTML = menuData.map(cat => `
+        <div class="menu-cat">${cat.cat}</div>
+        ${cat.items.map(item => `
+          <div class="menu-item">
+            <div>
+              <span class="name">${item.name}</span>
+              ${item.diet === 'v' ? '<span class="badge-diet"><i class="fas fa-leaf"></i> V</span>' : ''}
+              <div class="desc">${item.desc}</div>
+            </div>
+            <span class="price">$${item.price}</span>
+          </div>
+        `).join('')}
+      `).join('');
+    }
+
+    function renderGallery() {
+      const container = document.getElementById('gallery');
+      const colors = ['linear-gradient(135deg,#7c2d12,#9a3412)','linear-gradient(135deg,#92400e,#a16207)','linear-gradient(135deg,#78350f,#92400e)','linear-gradient(135deg,#854d0e,#a16207)','linear-gradient(135deg,#713f12,#854d0e)','linear-gradient(135deg,#9a3412,#c2410c)'];
+      container.innerHTML = galleryIcons.map((icon,i) =>
+        `<div class="gallery-item" style="background:${colors[i%colors.length]}"><i class="fas ${icon}"></i></div>`
+      ).join('');
+    }
+
+    function setTheme(t) {
+      theme = t;
+      document.body.className = `theme-${t}`;
+      document.querySelectorAll('[data-theme]').forEach(b => b.classList.toggle('active', b.dataset.theme === t));
+      const h = heroData[t];
+      document.getElementById('heroTitle').textContent = h.title;
+      document.getElementById('heroDesc').textContent = h.desc;
+    }
+
+    function setGallery(cols) {
+      galleryCols = cols;
+      document.getElementById('gallery').className = `gallery grid-${cols}`;
+      document.querySelectorAll('[data-gallery]').forEach(b => b.classList.toggle('active', b.dataset.gallery == cols));
+    }
+
+    document.getElementById('controls').addEventListener('click', e => {
+      const btn = e.target.closest('button');
+      if (!btn) return;
+      if (btn.dataset.theme) setTheme(btn.dataset.theme);
+      if (btn.dataset.gallery) setGallery(parseInt(btn.dataset.gallery));
+    });
+
+    renderMenu();
+    renderGallery();
+  </script>
+</body>
+</html>
