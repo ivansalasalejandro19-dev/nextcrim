@@ -136,7 +136,7 @@
     </div>
     <div class="ctrl-group">
       <label>Moneda</label>
-      <button data-currency="mxn" class="active">MXN</button>
+      <button data-currency="ars" class="active">ARS</button>
       <button data-currency="usd">USD</button>
     </div>
   </div>
@@ -145,6 +145,7 @@
     <div class="badge"><i class="fas fa-building"></i> Propiedades premium</div>
     <h1 id="heroTitle">Encuentra tu hogar ideal</h1>
     <p id="heroDesc">Casas, departamentos y terrenos en las mejores zonas</p>
+    <div style="font-size:.85rem;opacity:.5;margin-top:6px"><i class="fas fa-map-marker-alt" style="color:#7c3aed"></i> Argentina</div>
   </div>
 
   <div class="filter-bar">
@@ -172,14 +173,14 @@
 
   <script>
     const properties = [
-      { id:1, type:'casa', name:'Casa 3 recámaras', loc:'Colonia Del Valle, CDMX', beds:3, baths:2, sqm:180, priceMxn:250000, priceUsd:12500, icon:'fa-home', color:'#7c3aed', tag:'Venta' },
-      { id:2, type:'departamento', name:'Departamento 2 recámaras', loc:'Polanco, CDMX', beds:2, baths:2, sqm:110, priceMxn:180000, priceUsd:9000, icon:'fa-city', color:'#6d28d9', tag:'Venta' },
-      { id:3, type:'departamento', name:'Penthouse 3 recámaras', loc:'Santa Fe, CDMX', beds:3, baths:3, sqm:200, priceMxn:35000, priceUsd:1750, icon:'fa-building', color:'#8b5cf6', tag:'Renta' },
-      { id:4, type:'terreno', name:'Terreno residencial', loc:'Interlomas, EDOMEX', beds:0, baths:0, sqm:500, priceMxn:320000, priceUsd:16000, icon:'fa-tree', color:'#9333ea', tag:'Venta' },
-      { id:5, type:'local', name:'Local comercial', loc:'Centro, CDMX', beds:0, baths:1, sqm:80, priceMxn:150000, priceUsd:7500, icon:'fa-store', color:'#a855f7', tag:'Venta' },
-      { id:6, type:'casa', name:'Casa con jardín', loc:'Coyoacán, CDMX', beds:4, baths:3, sqm:250, priceMxn:28000, priceUsd:1400, icon:'fa-home', color:'#c084fc', tag:'Renta' },
-      { id:7, type:'casa', name:'Casa campestre', loc:'Tepoztlán, MORELOS', beds:3, baths:2, sqm:350, priceMxn:450000, priceUsd:22500, icon:'fa-tree', color:'#7c3aed', tag:'Venta' },
-      { id:8, type:'departamento', name:'Departamento estudio', loc:'Roma Norte, CDMX', beds:1, baths:1, sqm:55, priceMxn:8500, priceUsd:425, icon:'fa-city', color:'#6d28d9', tag:'Renta' },
+      { id:1, type:'casa', name:'Casa 3 recámaras', loc:'Colonia Del Valle, CABA', beds:3, baths:2, sqm:180, priceArs:85000000, priceUsd:12500, icon:'fa-home', color:'#7c3aed', tag:'Venta' },
+      { id:2, type:'departamento', name:'Departamento 2 recámaras', loc:'Palermo, CABA', beds:2, baths:2, sqm:110, priceArs:62000000, priceUsd:9000, icon:'fa-city', color:'#6d28d9', tag:'Venta' },
+      { id:3, type:'departamento', name:'Penthouse 3 recámaras', loc:'Puerto Madero, CABA', beds:3, baths:3, sqm:200, priceArs:12000000, priceUsd:1750, icon:'fa-building', color:'#8b5cf6', tag:'Renta' },
+      { id:4, type:'terreno', name:'Terreno residencial', loc:'Nordelta, Bs As', beds:0, baths:0, sqm:500, priceArs:110000000, priceUsd:16000, icon:'fa-tree', color:'#9333ea', tag:'Venta' },
+      { id:5, type:'local', name:'Local comercial', loc:'Microcentro, CABA', beds:0, baths:1, sqm:80, priceArs:52000000, priceUsd:7500, icon:'fa-store', color:'#a855f7', tag:'Venta' },
+      { id:6, type:'casa', name:'Casa con jardín', loc:'Belgrano, CABA', beds:4, baths:3, sqm:250, priceArs:9600000, priceUsd:1400, icon:'fa-home', color:'#c084fc', tag:'Renta' },
+      { id:7, type:'casa', name:'Casa campestre', loc:'San Isidro, Bs As', beds:3, baths:2, sqm:350, priceArs:155000000, priceUsd:22500, icon:'fa-tree', color:'#7c3aed', tag:'Venta' },
+      { id:8, type:'departamento', name:'Departamento estudio', loc:'Recoleta, CABA', beds:1, baths:1, sqm:55, priceArs:2900000, priceUsd:425, icon:'fa-city', color:'#6d28d9', tag:'Renta' },
     ];
 
     const heroData = {
@@ -188,7 +189,7 @@
       green:{ title:'Tu próximo hogar', desc:'Propiedades seleccionadas con los mejores estándares' },
     };
 
-    let theme = 'dark', layout = 'grid', currency = 'mxn', type = 'all', search = '', bedrooms = 0, sort = 'default';
+    let theme = 'dark', layout = 'grid', currency = 'ars', type = 'all', search = '', bedrooms = 0, sort = 'default';
 
     function renderProperties() {
       const container = document.getElementById('properties');
@@ -196,11 +197,11 @@
       if (type !== 'all') filtered = filtered.filter(p => p.type === type);
       if (search) filtered = filtered.filter(p => p.loc.toLowerCase().includes(search.toLowerCase()) || p.name.toLowerCase().includes(search.toLowerCase()));
       if (bedrooms > 0) filtered = filtered.filter(p => p.beds >= bedrooms || (bedrooms === 4 && p.beds >= 4));
-      if (sort === 'price-asc') filtered.sort((a,b) => a.priceMxn - b.priceMxn);
-      if (sort === 'price-desc') filtered.sort((a,b) => b.priceMxn - a.priceMxn);
+      if (sort === 'price-asc') filtered.sort((a,b) => a.priceArs - b.priceArs);
+      if (sort === 'price-desc') filtered.sort((a,b) => b.priceArs - a.priceArs);
 
-      const symbol = currency === 'mxn' ? '$' : 'USD $';
-      const rate = currency === 'mxn' ? 1 : 1/20;
+      const symbol = currency === 'ars' ? '$' : 'USD $';
+      const rate = currency === 'ars' ? 1 : 1/6900;
 
       container.innerHTML = filtered.map(p => `
         <div class="prop-card">
@@ -216,7 +217,7 @@
               ${p.baths ? `<span><i class="fas fa-bath"></i> ${p.baths} baños</span>` : ''}
               <span><i class="fas fa-arrows-alt"></i> ${p.sqm}m²</span>
             </div>
-            <div class="price">${symbol}${Math.round(p.priceMxn * rate).toLocaleString()} <small>${p.tag === 'Renta' ? '/ mes' : ''}</small></div>
+            <div class="price">${symbol}${Math.round(p.priceArs * rate).toLocaleString()} <small>${p.tag === 'Renta' ? '/ mes' : ''}</small></div>
           </div>
         </div>
       `).join('');

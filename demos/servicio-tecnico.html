@@ -111,7 +111,7 @@
     </div>
     <div class="ctrl-group">
       <label>Moneda</label>
-      <button data-currency="mxn" class="active">MXN</button>
+      <button data-currency="ars" class="active">ARS</button>
       <button data-currency="usd">USD</button>
     </div>
   </div>
@@ -140,14 +140,14 @@
 
   <script>
     const services = [
-      { id:1, name:'Cambio de pantalla', desc:'Pantalla original/compatible', price:299, usd:14, icon:'fa-mobile-alt', filter:'repair' },
-      { id:2, name:'Cambio de batería', desc:'Batería alta capacidad, 6 meses garantía', price:199, usd:9, icon:'fa-battery-full', filter:'repair' },
-      { id:3, name:'Daño por líquidos', desc:'Limpieza ultrasónica y reparación', price:399, usd:19, icon:'fa-tint', filter:'repair' },
-      { id:4, name:'Cámara', desc:'Reparación y reemplazo', price:349, usd:17, icon:'fa-camera', filter:'repair' },
-      { id:5, name:'Puerto de carga', desc:'Reparación de flex y conector', price:249, usd:12, icon:'fa-usb', filter:'repair' },
-      { id:6, name:'Funda protectora', desc:'Funda resistente a golpes', price:89, usd:4, icon:'fa-shield-alt', filter:'accessory' },
-      { id:7, name:'Mica templada', desc:'Protección de pantalla 9H', price:49, usd:2, icon:'fa-window-maximize', filter:'accessory' },
-      { id:8, name:'Audífonos', desc:'Audífonos inalámbricos', price:149, usd:7, icon:'fa-headphones', filter:'accessory' },
+      { id:1, name:'Cambio de pantalla', desc:'Pantalla original/compatible', price:8999, usd:14, icon:'fa-mobile-alt', filter:'repair' },
+      { id:2, name:'Cambio de batería', desc:'Batería alta capacidad, 6 meses garantía', price:5999, usd:9, icon:'fa-battery-full', filter:'repair' },
+      { id:3, name:'Daño por líquidos', desc:'Limpieza ultrasónica y reparación', price:11999, usd:19, icon:'fa-tint', filter:'repair' },
+      { id:4, name:'Cámara', desc:'Reparación y reemplazo', price:9999, usd:17, icon:'fa-camera', filter:'repair' },
+      { id:5, name:'Puerto de carga', desc:'Reparación de flex y conector', price:7499, usd:12, icon:'fa-usb', filter:'repair' },
+      { id:6, name:'Funda protectora', desc:'Funda resistente a golpes', price:2999, usd:4, icon:'fa-shield-alt', filter:'accessory' },
+      { id:7, name:'Mica templada', desc:'Protección de pantalla 9H', price:1499, usd:2, icon:'fa-window-maximize', filter:'accessory' },
+      { id:8, name:'Audífonos', desc:'Audífonos inalámbricos', price:4999, usd:7, icon:'fa-headphones', filter:'accessory' },
     ];
 
     const heroData = {
@@ -156,19 +156,19 @@
       blue:{ title:'Repair & Go', desc:'Servicio técnico rápido y confiable' },
     };
 
-    let theme = 'dark', filter = 'all', currency = 'mxn';
+    let theme = 'dark', filter = 'all', currency = 'ars';
 
     function renderServices() {
       const container = document.getElementById('services');
       let filtered = services;
       if (filter !== 'all') filtered = filtered.filter(s => s.filter === filter);
-      const symbol = currency === 'mxn' ? '$' : 'USD $';
+      const symbol = currency === 'ars' ? '$' : 'USD $';
       container.innerHTML = filtered.map(s => `
         <div class="card">
           <i class="fas ${s.icon}"></i>
           <h3>${s.name}</h3>
           <p>${s.desc}</p>
-          <span class="price-tag">${symbol}${currency==='mxn'?s.price:s.usd}</span>
+          <span class="price-tag">${symbol}${currency==='ars'?s.price:s.usd}</span>
         </div>
       `).join('');
     }
