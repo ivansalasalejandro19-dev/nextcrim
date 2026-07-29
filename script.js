@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
           ${featuresHtml}
         </div>
         <div style="text-align:center; display:flex; gap:12px; justify-content:center; flex-wrap:wrap">
-          <a href="https://wa.me/541136773248?text=Hola%20Next%20Crim!%20Quiero%20un%20proyecto%20similar%20a%20${encodeURIComponent(demo.title)}" target="_blank" class="modal-demo-cta" style="text-decoration:none; background:linear-gradient(135deg,#25D366,#128C7E)">
+          <a href="https://wa.me/541157991937?text=Hola%20Next%20Crim!%20Quiero%20un%20proyecto%20similar%20a%20${encodeURIComponent(demo.title)}" target="_blank" class="modal-demo-cta" style="text-decoration:none; background:linear-gradient(135deg,#25D366,#128C7E)">
             <i class="fab fa-whatsapp"></i> Consultar por WhatsApp
           </a>
           <button class="modal-demo-cta" onclick="document.getElementById('modalClose').click()" style="background:linear-gradient(135deg,#7c3aed,#6d28d9)">
